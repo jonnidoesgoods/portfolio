@@ -1,0 +1,3021 @@
+
+/* ================================================================
+   V11 — RAIL REBUILD
+   One component, one geometry, one motion model.
+   ================================================================ */
+
+.story-index{
+  height:760vh !important;
+  position:relative;
+}
+
+.story-sticky{
+  position:sticky !important;
+  top:0 !important;
+  height:100vh !important;
+  overflow:hidden !important;
+  background:inherit !important;
+}
+
+/* ---------- instrument geometry ---------- */
+.reader-rail{
+  --rail-top:3.5vh;
+  --yellow-height:clamp(112px,15vh,158px);
+  --label-zone:78px;
+  --pitch:27px; /* target pitch; JS fits it exactly to one panel span */
+
+  position:absolute !important;
+  inset:0 0 auto 0 !important;
+  height:32vh !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:transparent !important;
+  z-index:20 !important;
+}
+
+/* The moving tape. Tick growth NEVER changes its spacing because every
+   tick lives in one fixed, uniformly calculated slot. */
+.reader-track{
+  position:absolute !important;
+  left:0 !important;
+  top:var(--rail-top) !important;
+  bottom:auto !important;
+  display:block !important;
+  height:calc(var(--yellow-height) + var(--label-zone)) !important;
+  padding:0 !important;
+  margin:0 !important;
+  will-change:transform !important;
+  z-index:1 !important;
+}
+
+.rail-slot{
+  position:absolute !important;
+  top:0 !important;
+  width:0 !important;
+  height:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+/* Exact Home resting language, rotated vertically:
+   13px length / 1px thickness / rgba navy .35 / .10s linear. */
+.reader-track .reader-tick{
+  position:absolute !important;
+  left:50% !important;
+  top:auto !important;
+  bottom:var(--label-zone) !important;
+
+  width:1px !important;
+  height:13px !important;
+  min-width:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  flex:none !important;
+
+  transform:translateX(-50%) !important;
+  transform-origin:bottom center !important;
+
+  background:rgba(23,59,99,.35) !important;
+  opacity:1 !important;
+
+  transition:
+    height .10s linear,
+    width .10s linear,
+    background .10s linear,
+    opacity .10s linear !important;
+}
+
+/* Section markers remain visibly structural at rest. */
+.reader-track .reader-tick.chapter-marker{
+  width:1.5px !important;
+  height:24px !important;
+  background:rgba(23,59,99,.82) !important;
+}
+
+/* Travelling section name: attached to the marker slot, but never part
+   of flex geometry. */
+.chapter-floating-label{
+  position:absolute !important;
+  left:50% !important;
+  top:calc(var(--yellow-height) + 14px) !important;
+  transform:translateX(-50%) !important;
+
+  display:flex !important;
+  align-items:baseline !important;
+  gap:10px !important;
+  width:max-content !important;
+  margin:0 !important;
+  padding:0 !important;
+
+  color:rgba(23,59,99,.92) !important;
+  opacity:var(--chapter-label-opacity,.60) !important;
+
+  line-height:1 !important;
+  text-align:left !important;
+  white-space:nowrap !important;
+
+  pointer-events:none !important;
+  z-index:3 !important;
+
+  transition:
+    opacity .12s linear !important;
+}
+
+.chapter-floating-label span{
+  font-size:13px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+}
+
+.chapter-floating-label strong{
+  font-size:24px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+  letter-spacing:-.015em !important;
+}
+
+/* The navy duplicate never travels visibly while its section is active. */
+.chapter-floating-label.is-active-section{
+  opacity:0 !important;
+  transition:none !important;
+}
+
+/* ---------- fixed yellow reader ---------- */
+.reader-head{
+  position:absolute !important;
+  left:50% !important;
+  top:var(--rail-top) !important;
+  bottom:auto !important;
+
+  width:10px !important;
+  height:calc(var(--yellow-height) + var(--label-zone)) !important;
+  transform:translateX(-50%) !important;
+
+  pointer-events:none !important;
+  z-index:50 !important;
+  background:transparent !important;
+}
+
+.reader-head > i{
+  position:absolute !important;
+  top:0 !important;
+  left:50% !important;
+  bottom:auto !important;
+
+  width:9px !important;
+  height:var(--yellow-height) !important;
+  transform:translateX(-50%) !important;
+
+  background:#FFB800 !important;
+  opacity:1 !important;
+  z-index:10 !important;
+}
+
+.reader-label,
+.reader-label.is-changing{
+  position:absolute !important;
+  left:50% !important;
+  top:calc(var(--yellow-height) + 14px) !important;
+  bottom:auto !important;
+
+  transform:translateX(-50%) !important;
+  display:flex !important;
+  align-items:baseline !important;
+  gap:10px !important;
+
+  padding:0 !important;
+  margin:0 !important;
+  background:transparent !important;
+
+  color:#FFB800 !important;
+  opacity:1 !important;
+  white-space:nowrap !important;
+  transition:none !important;
+  z-index:20 !important;
+}
+
+.reader-label span{
+  font-size:13px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+}
+
+.reader-label strong{
+  font-size:24px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+  letter-spacing:-.015em !important;
+}
+
+/* ---------- story content ----------
+   Rail remains visually detached from content; same background as hero. */
+.story-content-track{
+  position:absolute !important;
+  left:0 !important;
+  right:auto !important;
+  top:36vh !important;
+  bottom:0 !important;
+
+  display:flex !important;
+  height:64vh !important;
+  will-change:transform !important;
+  background:transparent !important;
+}
+
+.story-content{
+  flex:0 0 100vw !important;
+  width:100vw !important;
+  min-width:100vw !important;
+  height:64vh !important;
+
+  padding-top:5vh !important;
+  padding-bottom:4vh !important;
+  background:transparent !important;
+}
+
+/* The eyebrow must stay in normal flow so Overview cannot overlap it. */
+.story-eyebrow{
+  position:static !important;
+  display:block !important;
+  margin-bottom:3.2vh !important;
+}
+
+.overview-content{
+  grid-template-rows:auto 1fr auto !important;
+  align-content:stretch !important;
+}
+.overview-content .story-eyebrow{
+  grid-column:1 / -1 !important;
+  grid-row:1 !important;
+  align-self:start !important;
+  margin-bottom:2.5vh !important;
+}
+.overview-content h2{
+  grid-column:1 !important;
+  grid-row:2 !important;
+  align-self:center !important;
+  margin-top:0 !important;
+}
+.overview-content > p{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  align-self:center !important;
+}
+.overview-content .story-meta{
+  grid-column:1 / -1 !important;
+  grid-row:3 !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:flex-start !important;
+}
+
+/* Kill every obsolete visual rail layer from V7–V10. */
+.reader-rail::before,
+.reader-rail::after,
+.continuous-story-rail,
+.film-index,
+.meter-index,
+.story-progress{
+  content:none !important;
+  display:none !important;
+}
+
+@media(max-width:750px){
+  .reader-rail{
+    --rail-top:3vh;
+    --yellow-height:clamp(96px,13vh,125px);
+    --label-zone:70px;
+  }
+  .reader-label strong{font-size:21px !important}
+  .reader-label span{font-size:12px !important}
+  .chapter-floating-label{
+    width:max-content !important;
+  }
+  .chapter-floating-label strong{font-size:21px !important}
+  .chapter-floating-label span{font-size:12px !important}
+  .story-content-track{
+    top:34vh !important;
+    height:66vh !important;
+  }
+  .story-content{
+    height:66vh !important;
+  }
+}
+
+/* ================================================================
+   V11.1 — NAVY TICKS: TOP FIXED / GROW DOWNWARD
+   Yellow reader remains unchanged.
+   ================================================================ */
+
+.reader-track .reader-tick{
+  top:0 !important;
+  bottom:auto !important;
+  transform-origin:top center !important;
+}
+
+.reader-track .reader-tick.chapter-marker{
+  top:0 !important;
+  bottom:auto !important;
+  transform-origin:top center !important;
+}
+
+
+/* ================================================================
+   V11.3 — UNIFORM-PITCH RAIL
+   Every tick is placed on the same adaptive grid. Long section ticks can
+   never change the spacing of neighbouring ticks, while each section span
+   remains exactly equal to one content panel.
+   ================================================================ */
+.reader-head > i{
+  width:3px !important;
+}
+
+/* Neutralize legacy nth-child margins: every tick center stays on its slot. */
+.reader-track .rail-slot > .reader-tick{
+  left:0 !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  transition:none !important;
+}
+
+/* Chapter tick differs only in length/darkness, not in horizontal geometry. */
+.reader-track .reader-tick.chapter-marker{
+  width:1px !important;
+  height:30px !important;
+}
+
+/* The wave follows the finger/wheel without lag, then eases gently back to
+   the short navy resting state once horizontal rail movement has stopped. */
+.reader-rail.wave-settling .reader-track .rail-slot > .reader-tick{
+  transition:
+    height 280ms cubic-bezier(.22,.75,.24,1),
+    width 240ms cubic-bezier(.22,.75,.24,1),
+    background-color 220ms ease-out !important;
+}
+
+/* ================================================================
+   V12 — EDITORIAL SECTIONS
+   Overview becomes chapter 01. The following chapters translate the
+   presentation material into native, responsive web infographics.
+   ================================================================ */
+
+.story-index{
+  height:666vh !important;
+}
+
+.problem-content,
+.system-content,
+.strategy-content{
+  display:grid !important;
+  grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr) !important;
+  grid-template-rows:auto minmax(0,1fr) !important;
+  column-gap:5vw !important;
+  align-items:stretch !important;
+  justify-content:stretch !important;
+}
+
+.problem-content .story-eyebrow,
+.system-content .story-eyebrow,
+.strategy-content .story-eyebrow{
+  grid-column:1 / -1 !important;
+  grid-row:1 !important;
+  margin-bottom:2.2vh !important;
+}
+
+.problem-content > h2,
+.system-content > h2,
+.strategy-content > h2{
+  grid-column:1 !important;
+  grid-row:2 !important;
+  align-self:start !important;
+  margin:0 !important;
+  font-size:clamp(42px,4.8vw,76px) !important;
+  line-height:.84 !important;
+}
+
+/* ---------- 02 / THE PROBLEM ---------- */
+.problem-dashboard{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:clamp(14px,2vw,30px) !important;
+  align-self:start !important;
+  min-width:0 !important;
+}
+
+.metric-column{
+  min-width:0;
+  border-top:2px solid var(--navy,#173b63);
+}
+
+.metric-column header{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:9px 0 13px;
+  border-bottom:1px solid rgba(23,59,99,.24);
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.095em;
+}
+
+.metric-column header span{
+  opacity:.55;
+}
+
+.metric-row{
+  display:grid;
+  grid-template-columns:minmax(112px,1.05fr) minmax(75px,.95fr) 24px;
+  align-items:center;
+  gap:9px;
+  min-height:45px;
+  border-bottom:1px solid rgba(23,59,99,.24);
+}
+
+.metric-row > span{
+  font-size:clamp(8px,.72vw,11px);
+  line-height:1.12;
+  font-weight:700;
+  letter-spacing:.035em;
+}
+
+.metric-row > i{
+  position:relative;
+  display:block;
+  height:5px;
+  background:rgba(23,59,99,.12);
+  overflow:hidden;
+}
+
+.metric-row > i::after{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:calc(var(--level) * 1%);
+  background:#ffb800;
+}
+
+.metric-constraints .metric-row > i::after{
+  background:var(--navy,#173b63);
+}
+
+.metric-row > em{
+  font-size:11px;
+  line-height:1;
+  font-style:normal;
+  font-weight:700;
+  text-align:right;
+}
+
+/* ---------- 03 / THE SYSTEM ---------- */
+.system-grid{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  border-top:1px solid var(--navy,#173b63);
+  border-left:1px solid var(--navy,#173b63);
+  align-self:start !important;
+  min-width:0 !important;
+}
+
+.system-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto 1fr;
+  min-height:174px;
+  border-right:1px solid var(--navy,#173b63);
+  border-bottom:1px solid var(--navy,#173b63);
+}
+
+.system-card > header{
+  grid-column:1 / -1;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:7px 9px;
+  color:#ffb800;
+  border-bottom:1px solid rgba(23,59,99,.28);
+  font-size:9px;
+  letter-spacing:.09em;
+}
+
+.system-issue,
+.system-response{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  padding:9px;
+  min-width:0;
+}
+
+.system-response{
+  color:var(--cream,#f3eddf);
+  background:var(--navy,#173b63);
+}
+
+.system-issue small,
+.system-response small{
+  margin-bottom:auto;
+  font-size:7px;
+  letter-spacing:.11em;
+  opacity:.65;
+}
+
+.system-issue strong,
+.system-response strong{
+  margin-top:16px;
+  font-size:clamp(11px,1vw,15px);
+  line-height:1;
+  letter-spacing:-.015em;
+}
+
+.system-issue p,
+.system-response p{
+  margin:5px 0 0;
+  font-size:clamp(8px,.68vw,10px);
+  line-height:1.25;
+  opacity:.75;
+}
+
+.system-response::before{
+  content:"→";
+  position:absolute;
+  left:0;
+  top:50%;
+  width:18px;
+  height:18px;
+  transform:translate(-50%,-50%);
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:var(--navy,#173b63);
+  background:#ffb800;
+  font-size:10px;
+  z-index:2;
+}
+
+/* ---------- 04 / CONTENT STRATEGY ---------- */
+.strategy-layout{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  display:grid !important;
+  grid-template-columns:minmax(290px,1.08fr) minmax(210px,.92fr) !important;
+  gap:clamp(14px,2vw,28px) !important;
+  align-self:start !important;
+  min-width:0 !important;
+}
+
+.strategy-pipeline{
+  border-top:2px solid var(--navy,#173b63);
+}
+
+.strategy-step{
+  display:grid;
+  grid-template-columns:26px minmax(92px,.72fr) minmax(125px,1.28fr);
+  align-items:center;
+  gap:10px;
+  min-height:43px;
+  border-bottom:1px solid rgba(23,59,99,.26);
+}
+
+.strategy-step b{
+  color:#ffb800;
+  font-size:10px;
+}
+
+.strategy-step strong{
+  font-size:clamp(9px,.78vw,12px);
+  line-height:1.05;
+  letter-spacing:.025em;
+}
+
+.strategy-step span{
+  font-size:clamp(8px,.72vw,11px);
+  line-height:1.18;
+  opacity:.68;
+}
+
+.strategy-loop{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:10px;
+  padding-top:10px;
+  font-size:7px;
+  letter-spacing:.08em;
+}
+
+.strategy-loop i{
+  position:relative;
+  display:block;
+  height:1px;
+  background:#ffb800;
+}
+
+.strategy-loop i::after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:50%;
+  width:5px;
+  height:5px;
+  border-top:1px solid #ffb800;
+  border-right:1px solid #ffb800;
+  transform:translateY(-50%) rotate(45deg);
+}
+
+.strategy-proof{
+  display:grid;
+  grid-template-rows:minmax(0,1fr) auto;
+  min-width:0;
+  height:268px;
+  margin:0;
+  border:1px solid var(--navy,#173b63);
+  overflow:hidden;
+  background:#000;
+}
+
+.strategy-proof img{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:0;
+  object-fit:cover;
+  object-position:center;
+}
+
+.strategy-proof figcaption{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 9px;
+  color:var(--cream,#f3eddf);
+  background:var(--navy,#173b63);
+  font-size:7px;
+  letter-spacing:.075em;
+}
+
+.strategy-proof figcaption strong{
+  color:#ffb800;
+}
+
+@media(max-width:900px){
+  .problem-content,
+  .system-content,
+  .strategy-content{
+    grid-template-columns:minmax(220px,.62fr) minmax(0,1.38fr) !important;
+    column-gap:3vw !important;
+  }
+  .problem-content > h2,
+  .system-content > h2,
+  .strategy-content > h2{
+    font-size:clamp(34px,5.2vw,54px) !important;
+  }
+  .metric-row{grid-template-columns:minmax(90px,1fr) minmax(60px,.8fr) 20px;gap:6px}
+  .strategy-layout{grid-template-columns:1fr .75fr !important}
+}
+
+@media(max-width:750px){
+  .story-index{height:666vh !important}
+  .problem-content,
+  .system-content,
+  .strategy-content{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    grid-template-rows:auto auto 1fr !important;
+    padding-top:2.5vh !important;
+    row-gap:1vh !important;
+  }
+  .problem-content .story-eyebrow,
+  .system-content .story-eyebrow,
+  .strategy-content .story-eyebrow{
+    grid-column:1 !important;
+    grid-row:1 !important;
+    margin-bottom:0 !important;
+  }
+  .problem-content > h2,
+  .system-content > h2,
+  .strategy-content > h2{
+    grid-column:1 !important;
+    grid-row:2 !important;
+    font-size:9vw !important;
+  }
+  .problem-dashboard,
+  .system-grid,
+  .strategy-layout{
+    grid-column:1 !important;
+    grid-row:3 !important;
+  }
+  .problem-dashboard{gap:10px !important}
+  .metric-row{min-height:33px;grid-template-columns:minmax(74px,1fr) minmax(48px,.65fr) 18px}
+  .metric-row > span{font-size:7px}
+  .system-card{min-height:118px}
+  .system-issue p,.system-response p{display:none}
+  .strategy-layout{grid-template-columns:1.15fr .85fr !important;gap:10px !important}
+  .strategy-step{min-height:34px;grid-template-columns:20px 1fr}
+  .strategy-step span{display:none}
+  .strategy-proof{height:205px}
+  .strategy-proof figcaption{display:block}
+  .strategy-proof figcaption strong{display:none}
+}
+
+/* V12.1 — shorter reader head, higher label, more room for content. */
+.reader-rail{
+  --yellow-height:clamp(76px,10vh,106px);
+  height:25vh !important;
+}
+
+.story-content-track{
+  top:24vh !important;
+  height:76vh !important;
+}
+
+.story-content{
+  height:76vh !important;
+  padding-top:2vh !important;
+  padding-bottom:3vh !important;
+}
+
+/* V12.2 — shared headline scale and readable infographic modules. */
+.problem-content > h2,
+.system-content > h2,
+.strategy-content > h2{
+  font-size:clamp(44px,6.2vw,96px) !important;
+}
+
+.problem-content .story-eyebrow,
+.system-content .story-eyebrow,
+.strategy-content .story-eyebrow{
+  margin-bottom:1.4vh !important;
+}
+
+.metric-column header{
+  padding:12px 0 16px;
+  font-size:10px;
+}
+
+.metric-row{
+  grid-template-columns:minmax(124px,1.05fr) minmax(88px,.95fr) 28px;
+  gap:11px;
+  min-height:52px;
+}
+
+.metric-row > span{
+  font-size:clamp(10px,.86vw,13px);
+}
+
+.metric-row > i{
+  height:7px;
+}
+
+.metric-row > em{
+  font-size:13px;
+}
+
+.system-card{
+  min-height:218px;
+}
+
+.system-card > header{
+  padding:9px 11px;
+  font-size:10px;
+}
+
+.system-issue,
+.system-response{
+  padding:12px;
+}
+
+.system-issue small,
+.system-response small{
+  font-size:8px;
+}
+
+.system-issue strong,
+.system-response strong{
+  margin-top:20px;
+  font-size:clamp(13px,1.15vw,17px);
+}
+
+.system-issue p,
+.system-response p{
+  margin-top:7px;
+  font-size:clamp(10px,.82vw,12px);
+  line-height:1.3;
+}
+
+.strategy-layout{
+  grid-template-columns:minmax(330px,1.04fr) minmax(270px,.96fr) !important;
+}
+
+.strategy-step{
+  grid-template-columns:30px minmax(112px,.75fr) minmax(150px,1.25fr);
+  min-height:51px;
+}
+
+.strategy-step b{
+  font-size:11px;
+}
+
+.strategy-step strong{
+  font-size:clamp(11px,.9vw,14px);
+}
+
+.strategy-step span{
+  font-size:clamp(10px,.82vw,13px);
+  line-height:1.22;
+}
+
+.strategy-loop{
+  padding-top:13px;
+  font-size:8px;
+}
+
+.strategy-proof{
+  height:330px;
+}
+
+.strategy-proof figcaption{
+  padding:10px 11px;
+  font-size:8px;
+}
+
+@media(max-width:750px){
+  .reader-rail{
+    --yellow-height:clamp(64px,9vh,84px);
+    height:24vh !important;
+  }
+  .story-content-track{
+    top:23vh !important;
+    height:77vh !important;
+  }
+  .story-content{
+    height:77vh !important;
+    padding-top:2vh !important;
+  }
+  .problem-content > h2,
+  .system-content > h2,
+  .strategy-content > h2{
+    font-size:12vw !important;
+  }
+  .metric-column header{padding:8px 0 10px;font-size:8px}
+  .metric-row{
+    min-height:38px;
+    grid-template-columns:minmax(78px,1fr) minmax(52px,.7fr) 20px;
+    gap:6px;
+  }
+  .metric-row > span{font-size:8px}
+  .metric-row > i{height:5px}
+  .metric-row > em{font-size:10px}
+  .system-card{min-height:140px}
+  .system-card > header{padding:6px 8px;font-size:8px}
+  .system-issue,.system-response{padding:8px}
+  .system-issue strong,.system-response strong{margin-top:12px;font-size:11px}
+  .strategy-step{min-height:39px;grid-template-columns:22px 1fr}
+  .strategy-step strong{font-size:9px}
+  .strategy-proof{height:230px}
+}
+
+/* V12.3 — shared baselines and wider infographic fields. */
+.overview-content{
+  grid-template-columns:1fr !important;
+  grid-template-rows:auto minmax(0,1fr) auto !important;
+}
+
+.overview-main{
+  grid-column:1 !important;
+  grid-row:2 !important;
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  column-gap:7vw;
+  align-self:center;
+  align-items:start;
+  width:100%;
+}
+
+.overview-main h2{
+  grid-column:1 !important;
+  grid-row:1 !important;
+  align-self:start !important;
+  margin:0 !important;
+}
+
+.overview-main p{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  align-self:start !important;
+  max-width:720px;
+  margin:0;
+  font-size:18px;
+  line-height:1.35;
+}
+
+.overview-content .story-meta{
+  grid-column:1 !important;
+  grid-row:3 !important;
+}
+
+.problem-content,
+.system-content{
+  grid-template-columns:minmax(330px,.56fr) minmax(0,1.44fr) !important;
+  column-gap:3.2vw !important;
+}
+
+.problem-content > h2,
+.system-content > h2{
+  align-self:center !important;
+  padding-bottom:1px;
+}
+
+.problem-dashboard,
+.system-grid{
+  align-self:start !important;
+  width:100%;
+}
+
+.problem-dashboard{
+  gap:clamp(18px,2.3vw,36px) !important;
+  grid-template-columns:repeat(2,minmax(250px,1fr)) !important;
+}
+
+.problem-dashboard .metric-column header{
+  padding:14px 0 18px;
+  font-size:11px;
+}
+
+.problem-dashboard .metric-row{
+  min-height:58px;
+}
+
+.problem-dashboard .metric-row > span{
+  font-size:clamp(11px,.92vw,14px);
+}
+
+.problem-dashboard .metric-row > i{
+  height:8px;
+}
+
+.problem-dashboard .metric-row > em{
+  font-size:14px;
+}
+
+@media(max-width:900px){
+  .problem-content,
+  .system-content{
+    grid-template-columns:minmax(285px,.58fr) minmax(0,1.42fr) !important;
+    column-gap:2.5vw !important;
+  }
+  .overview-main{column-gap:5vw}
+}
+
+@media(max-width:750px){
+  .overview-main{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto;
+    gap:2vh;
+    align-self:start;
+  }
+  .overview-main h2{grid-column:1 !important;grid-row:1 !important}
+  .overview-main p{grid-column:1 !important;grid-row:2 !important;font-size:14px}
+  .problem-content,
+  .system-content{
+    grid-template-columns:1fr !important;
+  }
+  .problem-content > h2,
+  .system-content > h2{
+    align-self:start !important;
+  }
+  .problem-dashboard{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+  .problem-dashboard .metric-column header{padding:8px 0 10px;font-size:8px}
+  .problem-dashboard .metric-row{min-height:38px}
+  .problem-dashboard .metric-row > span{font-size:8px}
+  .problem-dashboard .metric-row > i{height:5px}
+  .problem-dashboard .metric-row > em{font-size:10px}
+}
+
+/* ================================================================
+   V13 — CASE STUDY NARRATIVE
+   Research becomes a four-page locked sequence. The System is rendered as
+   one visual editorial architecture instead of a list of text cards.
+   ================================================================ */
+
+.story-index{height:1200vh !important}
+
+/* ---------- 03 / ISSUES & SOLUTIONS ---------- */
+.issues-content{
+  display:grid !important;
+  grid-template-columns:minmax(300px,.54fr) minmax(0,1.46fr) !important;
+  grid-template-rows:auto minmax(0,1fr) !important;
+  column-gap:3vw;
+  align-items:stretch;
+}
+.issues-content .story-eyebrow{grid-column:1/-1;grid-row:1;margin-bottom:1.4vh}
+.issues-content>h2{
+  grid-column:1;grid-row:2;align-self:center;margin:0;
+  font-size:clamp(44px,6.2vw,96px);line-height:.84;
+}
+.issue-solution-grid{
+  grid-column:2;grid-row:2;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  min-height:53vh;border-top:1px solid var(--navy,#173b63);
+  border-left:1px solid var(--navy,#173b63);
+}
+.issue-solution-card{
+  display:grid;grid-template-rows:auto 1fr 1fr;min-width:0;
+  border-right:1px solid var(--navy,#173b63);border-bottom:1px solid var(--navy,#173b63);
+}
+.issue-solution-card header{display:flex;justify-content:space-between;padding:10px;color:#ffb800;font-size:9px;letter-spacing:.08em;border-bottom:1px solid rgba(23,59,99,.25)}
+.issue-solution-card>div{display:flex;flex-direction:column;justify-content:flex-end;padding:12px;min-height:0}
+.issue-solution-card>div+div{color:var(--cream,#f3eddf);background:var(--navy,#173b63)}
+.issue-solution-card small{margin-bottom:auto;font-size:7px;letter-spacing:.12em;opacity:.6}
+.issue-solution-card strong{font-size:clamp(11px,1.05vw,16px);line-height:1.02}
+.issue-solution-card p{margin:7px 0 0;font-size:clamp(8px,.72vw,11px);line-height:1.25;opacity:.72}
+
+/* ---------- 04 / RESEARCH ---------- */
+.research-content{display:grid !important;grid-template-rows:auto minmax(0,1fr) !important;align-items:stretch !important;overflow:hidden}
+.research-content .story-eyebrow{grid-row:1;margin-bottom:1.4vh}
+.research-window{grid-row:2;position:relative;width:100%;height:100%;min-height:0;overflow:hidden}
+.research-deck{display:flex;width:max-content;height:100%;will-change:transform}
+.research-page{
+  flex:0 0 calc(100vw - (2 * var(--page-x,34px)));
+  width:calc(100vw - (2 * var(--page-x,34px)));
+  display:grid;grid-template-columns:minmax(310px,.64fr) minmax(0,1.36fr);
+  gap:clamp(24px,4vw,70px);align-items:stretch;min-width:0;
+}
+.research-copy{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.research-copy>span{font-size:10px;font-weight:700;letter-spacing:.09em;color:#ffb800}
+.research-copy h2{margin:2vh 0 2.3vh;font-size:clamp(44px,5.7vw,88px);line-height:.84;letter-spacing:-.055em}
+.research-copy p{max-width:480px;margin:0;font-size:clamp(13px,1.18vw,18px);line-height:1.35}
+.research-art{position:relative;min-width:0;overflow:hidden;border:1px solid var(--navy,#173b63);background:#d8e2e7}
+.research-art>img{display:block;width:100%;height:100%;object-fit:cover}
+.visual-language-art>img{filter:saturate(.82) contrast(1.04);object-position:center 52%}
+.palette{position:absolute;right:18px;bottom:18px;display:flex;height:42px;border:1px solid var(--cream,#f3eddf)}
+.palette i{width:42px}.palette i:nth-child(1){background:#173b63}.palette i:nth-child(2){background:#829bb2}.palette i:nth-child(3){background:#d5c4a9}.palette i:nth-child(4){background:#f3eddf}.palette i:nth-child(5){background:#ffb800}
+.visual-language-art>strong{position:absolute;left:18px;bottom:18px;max-width:260px;color:#fff;font-size:9px;line-height:1.2;letter-spacing:.09em}
+.tone-art:after,.cadence-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(23,59,99,.04),rgba(23,59,99,.18))}
+.tone-words{position:absolute;z-index:1;inset:18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;pointer-events:none}
+.tone-words b{padding:6px 9px;color:var(--cream,#f3eddf);background:var(--navy,#173b63);font-size:clamp(12px,1.4vw,22px);letter-spacing:-.02em}
+.formats-art{display:grid;grid-template-columns:1fr .72fr;background:#ebe7de}
+.formats-art>img{object-fit:cover;object-position:center}
+.format-shapes{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:18px;background:var(--navy,#173b63)}
+.format-shapes span{display:grid;place-items:center;min-height:76px;border:1px solid #ffb800;color:#ffb800;font-size:24px;font-weight:700;line-height:.9}
+.format-shapes span:nth-child(2){aspect-ratio:1;min-height:0}.format-shapes small{font-size:7px;letter-spacing:.1em;color:var(--cream,#f3eddf)}
+.cadence-art>img{object-position:center}
+.cadence-legend{position:absolute;z-index:1;left:18px;right:18px;bottom:18px;display:grid;grid-template-columns:repeat(3,1fr);background:var(--cream,#f3eddf);border:1px solid var(--navy,#173b63)}
+.cadence-legend span{display:flex;align-items:center;gap:7px;padding:10px;font-size:8px;font-weight:700;letter-spacing:.08em;border-right:1px solid var(--navy,#173b63)}
+.cadence-legend span:last-child{border:0}.cadence-legend i{width:8px;height:8px;border-radius:50%;background:#ffb800}.cadence-legend span:nth-child(2) i{background:#829bb2}.cadence-legend span:nth-child(3) i{background:#173b63}
+.research-progress{position:absolute;left:0;bottom:0;display:flex;gap:6px;padding:10px 0;background:var(--cream,#f3eddf)}
+.research-progress i{display:block;width:28px;height:2px;background:rgba(23,59,99,.2)}
+.research-progress i.is-active{background:#ffb800}
+
+/* ---------- 05 / THE SYSTEM ---------- */
+.system-architecture-content{
+  display:grid !important;grid-template-columns:1fr !important;
+  grid-template-rows:auto auto auto minmax(0,1fr) !important;
+  align-items:stretch !important;row-gap:1.1vh;
+}
+.system-architecture-content .story-eyebrow{grid-column:1 !important;grid-row:1 !important;margin:0 !important}
+.system-title-row{grid-row:2;display:flex;align-items:baseline;justify-content:space-between;gap:24px}
+.system-title-row h2,.system-title-row>strong{margin:0;font-size:clamp(30px,4vw,64px);line-height:.86;letter-spacing:-.055em}
+.system-title-row h2{white-space:nowrap}.system-title-row>strong{max-width:44%;color:#ffb800;text-align:right}
+.system-backbone{grid-row:3;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:9px 12px;color:var(--cream,#f3eddf);background:var(--navy,#173b63)}
+.system-backbone span,.system-backbone small{font-size:7px;letter-spacing:.11em;opacity:.7}.system-backbone strong{text-align:center;font-size:11px;letter-spacing:.07em}
+.pillar-grid{grid-row:4;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));min-height:0;border-left:1px solid var(--navy,#173b63)}
+.pillar-card{display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;min-width:0;border-right:1px solid var(--navy,#173b63);border-bottom:1px solid var(--navy,#173b63);background:rgba(255,255,255,.08)}
+.pillar-card header{display:flex;justify-content:space-between;gap:10px;padding:9px 10px;border-bottom:1px solid rgba(23,59,99,.28);font-size:9px;line-height:1;letter-spacing:.055em}.pillar-card header b{color:#ffb800}.pillar-card header span{text-align:right;font-weight:700}
+.pillar-card p{min-height:42px;margin:0;padding:9px 10px;font-size:clamp(9px,.77vw,12px);line-height:1.25}
+.pillar-card footer{padding:8px 10px;color:var(--cream,#f3eddf);background:var(--navy,#173b63);font-size:7px;line-height:1.15;letter-spacing:.075em}
+.pillar-visual{position:relative;min-height:0;overflow:hidden;background:#d5c4a9}
+.pillar-sustainability .pillar-visual{display:grid;grid-template-columns:1fr .7fr 1.2fr;gap:8px;padding:18px;background:#cbc0ab}
+.pillar-sustainability .pillar-visual i{display:block;background:#173b63}.pillar-sustainability .pillar-visual i:nth-child(2){background:#f3eddf}.pillar-sustainability .pillar-visual i:nth-child(3){background:#8ca4b8}
+.pillar-photo img{display:block;width:100%;height:100%;object-fit:cover}.pillar-culture .pillar-photo img{object-position:19% center}.pillar-product .pillar-photo img{object-position:center}
+.pillar-data{display:grid;grid-template-columns:38px 1fr;align-content:center;gap:12px 9px;padding:20px;background:#d8e2e7}
+.pillar-data b{font-size:8px;letter-spacing:.06em}.pillar-data i{position:relative;height:8px;background:rgba(23,59,99,.15)}.pillar-data i:after{content:"";position:absolute;inset:0 auto 0 0;width:var(--bar);background:var(--navy,#173b63)}
+
+/* ---------- 07–09 / SUPPORTING CHAPTERS ---------- */
+.simple-editorial-content{display:grid !important;grid-template-columns:.62fr 1.38fr;grid-template-rows:auto 1fr;column-gap:5vw;align-items:stretch !important}
+.simple-editorial-content .story-eyebrow{grid-column:1/-1;grid-row:1;margin-bottom:1.4vh}
+.simple-editorial-content>h2{grid-column:1;grid-row:2;align-self:center;margin:0;font-size:clamp(44px,6.2vw,96px);line-height:.84}
+.selected-content figure{grid-column:2;grid-row:2;position:relative;margin:0;overflow:hidden;border:1px solid var(--navy,#173b63)}
+.selected-content figure img{display:block;width:100%;height:100%;object-fit:cover}.selected-content figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px;color:var(--cream,#f3eddf);background:var(--navy,#173b63);font-size:8px;letter-spacing:.08em}
+.impact-grid{grid-column:2;grid-row:2;display:grid;grid-template-columns:repeat(3,1fr);align-self:center;border-left:1px solid var(--navy,#173b63)}
+.impact-grid article{display:flex;flex-direction:column;min-height:260px;padding:14px;border-top:1px solid var(--navy,#173b63);border-right:1px solid var(--navy,#173b63);border-bottom:1px solid var(--navy,#173b63)}
+.impact-grid b{color:#ffb800}.impact-grid strong{margin-top:auto;font-size:clamp(14px,1.5vw,23px);line-height:1}.impact-grid span{margin-top:10px;font-size:11px;line-height:1.3;opacity:.7}
+.reflection-content>p{grid-column:2;grid-row:2;align-self:center;max-width:650px;margin:0;font-size:clamp(20px,2vw,30px);line-height:1.28}
+
+@media(max-width:900px){
+  .issues-content{grid-template-columns:minmax(260px,.5fr) minmax(0,1.5fr) !important;column-gap:2.2vw}
+  .research-page{grid-template-columns:minmax(260px,.62fr) minmax(0,1.38fr);gap:24px}
+  .system-title-row h2,.system-title-row>strong{font-size:clamp(27px,3.8vw,42px)}
+  .pillar-card p{font-size:9px}.pillar-card footer{font-size:6px}
+}
+
+@media(max-width:750px){
+  .story-index{height:1200vh !important}
+  .issues-content{grid-template-columns:1fr !important;grid-template-rows:auto auto 1fr !important;row-gap:1vh}
+  .issues-content .story-eyebrow{grid-row:1}.issues-content>h2{grid-column:1;grid-row:2;align-self:start;font-size:10vw}.issue-solution-grid{grid-column:1;grid-row:3;grid-template-columns:repeat(4,minmax(145px,1fr));overflow:hidden;min-height:0}.issue-solution-card p{display:none}
+  .research-page{flex-basis:calc(100vw - (2 * var(--page-x,20px)));width:calc(100vw - (2 * var(--page-x,20px)));grid-template-columns:.72fr 1.28fr;gap:12px}.research-copy h2{font-size:8vw;margin:1.2vh 0}.research-copy p{font-size:11px}.research-art{min-height:0}.palette i{width:22px}.palette{height:26px;right:8px;bottom:8px}.visual-language-art>strong{left:8px;bottom:8px;font-size:6px}.tone-words{inset:8px}.tone-words b{font-size:10px;padding:4px}.format-shapes{padding:8px;gap:6px}.format-shapes span{min-height:48px;font-size:16px}.cadence-legend{left:8px;right:8px;bottom:8px}.cadence-legend span{padding:6px;font-size:6px}
+  .system-title-row h2,.system-title-row>strong{font-size:8vw}.system-backbone{grid-template-columns:1fr;padding:6px;gap:3px}.system-backbone span,.system-backbone small{display:none}.pillar-grid{grid-template-columns:repeat(4,minmax(145px,1fr));overflow:hidden}.pillar-card p{display:none}.pillar-card footer{font-size:6px}.pillar-card header{font-size:7px}
+  .simple-editorial-content{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;row-gap:1vh}.simple-editorial-content>h2{grid-column:1;grid-row:2;align-self:start;font-size:10vw}.selected-content figure,.impact-grid,.reflection-content>p{grid-column:1;grid-row:3}.impact-grid article{min-height:190px;padding:8px}.impact-grid span{font-size:8px}.reflection-content>p{font-size:18px}
+}
+
+/* V13.1 — annotation pass: baselines, 2×2 issue square, wider research copy. */
+.overview-main{
+  align-self:end !important;
+  align-items:start !important;
+  margin-bottom:4.5vh;
+}
+.overview-main h2,.overview-main p{align-self:start !important}
+
+.problem-content{
+  grid-template-columns:minmax(300px,.58fr) minmax(0,1.42fr) !important;
+  column-gap:3.4vw !important;
+}
+.problem-content>h2{
+  align-self:center !important;
+  font-size:clamp(43px,5.25vw,82px) !important;
+  line-height:.84 !important;
+}
+.problem-content .no-break{white-space:nowrap}
+.problem-dashboard{align-self:center !important}
+
+.issues-content{
+  grid-template-columns:minmax(315px,.62fr) minmax(0,1.38fr) !important;
+  column-gap:4vw;
+}
+.issues-content>h2{font-size:clamp(42px,5.4vw,84px)}
+.issue-solution-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  justify-self:end;
+  align-self:center;
+  width:min(100%,58vh);
+  min-height:0;
+  aspect-ratio:1;
+}
+.issue-solution-card{min-height:0}
+.issue-solution-card>div{padding:9px 11px}
+.issue-solution-card strong{font-size:clamp(10px,.92vw,14px)}
+.issue-solution-card p{font-size:clamp(7px,.64vw,10px)}
+
+.research-page{
+  grid-template-columns:minmax(430px,.9fr) minmax(0,1.1fr);
+  gap:clamp(28px,4vw,66px);
+}
+.research-copy{justify-content:center}
+.research-copy h2{
+  max-width:100%;
+  margin:1.6vh 0 2vh;
+  font-size:clamp(42px,4.75vw,74px);
+  line-height:.86;
+}
+.research-copy p{
+  width:100%;
+  max-width:540px;
+  font-size:clamp(13px,1.12vw,17px);
+}
+.tone-art:after{display:none}
+.tone-art>img,.cadence-art>img{object-position:center 58%}
+.research-note-caption{
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  padding:7px 9px;
+  color:var(--cream,#f3eddf);
+  background:var(--navy,#173b63);
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.09em;
+}
+
+.strategy-content>h2,.strategy-layout{align-self:center !important}
+.strategy-layout{grid-template-columns:minmax(350px,1.08fr) minmax(300px,.92fr) !important}
+.strategy-step{min-height:60px}
+.strategy-proof{height:390px}
+
+@media(max-width:1000px){
+  .research-page{grid-template-columns:minmax(340px,.82fr) minmax(0,1.18fr)}
+  .issues-content{grid-template-columns:minmax(280px,.58fr) minmax(0,1.42fr) !important}
+}
+
+@media(max-width:750px){
+  .overview-main{align-self:end !important;margin-bottom:3vh}
+  .problem-content{grid-template-columns:1fr !important}
+  .problem-content>h2{font-size:9.5vw !important}
+  .issues-content{grid-template-columns:1fr !important}
+  .issue-solution-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));width:min(100%,50vh);aspect-ratio:1;justify-self:center;overflow:visible}
+  .research-page{grid-template-columns:.9fr 1.1fr;gap:12px}
+  .research-copy h2{font-size:7.2vw}
+  .research-copy p{font-size:10px}
+  .research-note-caption{right:7px;bottom:7px;font-size:6px;padding:5px}
+  .strategy-layout{grid-template-columns:1fr .82fr !important}
+  .strategy-step{min-height:43px}
+  .strategy-proof{height:260px}
+}
+
+/* ================================================================
+   V14 — SHARED EDITORIAL GRID
+   One measurable layout system for every chapter. The variables below are
+   the reference used for subsequent layout decisions and editor overlays.
+   ================================================================ */
+
+.story-index{
+  --section-x:clamp(32px,4.45vw,72px);
+  --section-top:clamp(16px,2.2vh,24px);
+  --section-bottom:clamp(24px,4vh,44px);
+  --eyebrow-gap:clamp(38px,6vh,62px);
+  --module-gap:clamp(28px,4vw,68px);
+  --headline-size:clamp(44px,6.2vw,96px);
+  --headline-leading:.84;
+  --page-x:var(--section-x);
+}
+
+.story-content{
+  box-sizing:border-box !important;
+  padding:var(--section-top) var(--section-x) var(--section-bottom) !important;
+  overflow:hidden !important;
+}
+
+.story-eyebrow{
+  margin:0 !important;
+  font-size:10px;
+  line-height:1;
+  letter-spacing:.09em;
+}
+
+/* Standard title: same measure, size and leading as chapter 01. */
+.overview-main h2,
+.problem-content>h2,
+.issues-content>h2,
+.research-copy h2,
+.strategy-content>h2,
+.impact-content>h2,
+.reflection-content>h2{
+  margin:0 !important;
+  font-size:var(--headline-size) !important;
+  line-height:var(--headline-leading) !important;
+  letter-spacing:-.055em !important;
+}
+
+/* 01 — reference geometry: title and introduction share one top edge. */
+.overview-main{
+  align-self:end !important;
+  grid-template-columns:minmax(0,1.15fr) minmax(250px,.85fr) !important;
+  gap:var(--module-gap) !important;
+  margin:0 0 4vh !important;
+}
+.overview-main p{padding-top:.12em}
+
+/* 02 — the larger pair of tables and the title share a bottom edge. */
+.problem-content{
+  grid-template-columns:minmax(280px,.58fr) minmax(0,1.42fr) !important;
+  grid-template-rows:auto minmax(0,1fr) !important;
+  column-gap:var(--module-gap) !important;
+}
+.problem-content>h2,
+.problem-dashboard{
+  align-self:end !important;
+  margin-bottom:3.5vh !important;
+}
+.problem-dashboard{
+  width:100% !important;
+  grid-template-columns:repeat(2,minmax(230px,1fr)) !important;
+  gap:clamp(20px,2.5vw,38px) !important;
+}
+.problem-dashboard .metric-column header{padding:14px 0 18px;font-size:11px}
+.problem-dashboard .metric-row{min-height:58px}
+.problem-dashboard .metric-row>span{font-size:clamp(11px,.92vw,14px)}
+.problem-dashboard .metric-row>i{height:8px}
+.problem-dashboard .metric-row>em{font-size:14px}
+
+/* 03 — only its footprint is corrected now; its final composition is open. */
+.issues-content{
+  grid-template-columns:minmax(300px,.62fr) minmax(0,1.38fr) !important;
+  column-gap:var(--module-gap) !important;
+}
+.issues-content>h2,
+.issue-solution-grid{align-self:end !important;margin-bottom:3.5vh !important}
+.issue-solution-grid{width:min(100%,46vh) !important}
+
+/* 04 — the copy follows the same vertical proportion as overview. */
+.research-content{grid-template-rows:auto minmax(0,1fr) !important}
+.research-window{margin-top:0}
+.research-page{
+  grid-template-columns:minmax(360px,.82fr) minmax(0,1.18fr) !important;
+  gap:var(--module-gap) !important;
+  padding-bottom:2.8vh;
+}
+.research-copy{
+  position:relative !important;
+  justify-content:flex-end !important;
+  padding-bottom:4vh;
+}
+.research-copy>span{margin-bottom:var(--eyebrow-gap)}
+.research-copy h2{margin-bottom:clamp(18px,2.4vh,28px) !important}
+.research-copy p{width:100%;max-width:560px !important}
+.research-art{min-height:0;background:transparent !important}
+
+/* The progress marks no longer paint a foreign rectangle over the section. */
+.research-progress{
+  bottom:1px !important;
+  gap:7px !important;
+  padding:0 !important;
+  background:transparent !important;
+}
+.research-progress i{
+  width:34px !important;
+  height:2px !important;
+  transform:scaleX(.72);
+  transform-origin:left center;
+  background:rgba(23,59,99,.22) !important;
+  transition:transform 260ms ease,background-color 180ms linear !important;
+}
+.research-progress i.is-active{
+  transform:scaleX(1);
+  background:#ffb800 !important;
+}
+
+/* Shared numbered media language. No final photography is implied yet. */
+.media-placeholder{
+  position:relative;
+  display:grid;
+  place-content:center;
+  gap:8px;
+  width:100%;
+  height:100%;
+  min-height:0;
+  overflow:hidden;
+  color:var(--navy,#173b63);
+  background:#aebfca;
+  border:1px solid var(--navy,#173b63);
+}
+.media-placeholder::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(23,59,99,.28);
+}
+.media-placeholder b{
+  position:relative;
+  z-index:1;
+  font-size:clamp(44px,6vw,92px);
+  line-height:.8;
+  letter-spacing:-.06em;
+}
+.media-placeholder span{
+  position:relative;
+  z-index:1;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-align:center;
+}
+.formats-art .media-placeholder{border:0}
+.formats-art{grid-template-columns:1fr .58fr !important}
+.palette,.visual-language-art>strong,.format-shapes,.cadence-legend{z-index:2}
+
+/* 05 — four short content bases with future transparent PNGs protruding. */
+.system-architecture-content{
+  grid-template-rows:auto auto auto minmax(0,1fr) !important;
+  row-gap:clamp(8px,1.2vh,14px) !important;
+}
+.system-title-row{margin-top:var(--eyebrow-gap)}
+.pillar-grid{
+  align-self:end !important;
+  height:18vh;
+  min-height:138px !important;
+  margin-top:auto;
+  overflow:hidden !important;
+}
+.pillar-card{
+  position:relative;
+  display:grid !important;
+  grid-template-rows:auto 1fr !important;
+  overflow:visible;
+  background:rgba(255,255,255,.08);
+}
+.pillar-card header{min-height:42px;align-items:flex-start}
+.pillar-card p{
+  align-self:end;
+  min-height:0 !important;
+  padding:12px !important;
+  font-size:clamp(9px,.78vw,12px) !important;
+}
+.pillar-card>.media-placeholder{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 10px);
+  width:min(72%,180px);
+  height:auto;
+  aspect-ratio:1;
+  transform:translateX(-50%);
+}
+.pillar-card>.media-placeholder b{font-size:clamp(36px,4.5vw,68px)}
+.pillar-card>.media-placeholder::before{inset:9px}
+
+/* 06 — wider pipeline, a deliberate gap, and numbered image positions. */
+.strategy-content{
+  grid-template-columns:minmax(300px,.56fr) minmax(0,1.44fr) !important;
+  column-gap:var(--module-gap) !important;
+}
+.strategy-content>h2,
+.strategy-layout{
+  align-self:end !important;
+  margin-bottom:3.5vh !important;
+}
+.strategy-layout{
+  grid-template-columns:minmax(390px,1.2fr) minmax(250px,.8fr) !important;
+  gap:clamp(34px,4vw,64px) !important;
+}
+.strategy-step{min-height:58px}
+.strategy-media-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  gap:8px;
+  min-width:0;
+}
+.strategy-media-grid .media-placeholder{aspect-ratio:1;min-height:0}
+.strategy-media-grid .media-placeholder b{font-size:clamp(28px,3.2vw,48px)}
+.strategy-media-grid .media-placeholder::before{inset:8px}
+
+/* 07 — intentionally reserved. */
+.selected-content{
+  display:block !important;
+}
+
+/* 08 — title begins below the eyebrow; modules are locked to the base. */
+.impact-content{
+  display:grid !important;
+  grid-template-columns:minmax(300px,.62fr) minmax(0,1.38fr) !important;
+  grid-template-rows:auto auto minmax(0,1fr) !important;
+  column-gap:var(--module-gap) !important;
+}
+.impact-content .story-eyebrow{grid-column:1/-1;grid-row:1}
+.impact-content>h2{
+  grid-column:1;
+  grid-row:2;
+  align-self:start !important;
+  margin-top:var(--eyebrow-gap) !important;
+}
+.impact-grid{
+  grid-column:2;
+  grid-row:2/4;
+  align-self:end !important;
+  margin-bottom:0;
+}
+.impact-grid article{min-height:210px}
+
+/* 09 uses the standard size and safe-area geometry. */
+.reflection-content{column-gap:var(--module-gap) !important}
+.reflection-content>h2,.reflection-content>p{align-self:end !important;margin-bottom:3.5vh !important}
+
+@media(max-width:1000px){
+  .story-index{
+    --section-x:clamp(22px,3.2vw,36px);
+    --module-gap:clamp(22px,3vw,36px);
+    --headline-size:clamp(42px,6.2vw,64px);
+  }
+  .overview-main{grid-template-columns:minmax(0,1.1fr) minmax(230px,.9fr) !important}
+  .problem-content{grid-template-columns:minmax(280px,.48fr) minmax(0,1.52fr) !important}
+  .problem-dashboard{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:18px !important}
+  .problem-dashboard .metric-row{min-height:48px;grid-template-columns:minmax(88px,1fr) minmax(42px,.6fr) 20px;gap:5px}
+  .problem-dashboard .metric-row>span{font-size:9px}
+  .problem-dashboard .metric-row>em{font-size:10px}
+  .issues-content{grid-template-columns:minmax(280px,.56fr) minmax(0,1.44fr) !important}
+  .research-page{grid-template-columns:minmax(330px,.86fr) minmax(0,1.14fr) !important}
+  .strategy-content{grid-template-columns:minmax(280px,.52fr) minmax(0,1.48fr) !important}
+  .strategy-layout{grid-template-columns:minmax(260px,1.28fr) minmax(140px,.72fr) !important;gap:20px !important}
+  .strategy-step{min-height:50px}
+  .strategy-step{grid-template-columns:24px minmax(92px,.82fr) minmax(0,1.18fr);gap:6px}
+  .strategy-step strong{font-size:10px}
+  .strategy-step span{font-size:9px}
+}
+
+@media(max-width:750px){
+  .story-index{
+    --section-x:20px;
+    --section-top:16px;
+    --section-bottom:24px;
+    --eyebrow-gap:28px;
+    --module-gap:18px;
+    --headline-size:10vw;
+  }
+  .overview-main{grid-template-columns:1fr !important;grid-template-rows:auto auto !important;gap:18px !important}
+  .problem-content,.issues-content,.strategy-content,.impact-content{grid-template-columns:1fr !important}
+  .problem-content>h2,.problem-dashboard,.issues-content>h2,.issue-solution-grid,.strategy-content>h2,.strategy-layout{margin-bottom:2vh !important}
+  .problem-dashboard{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:10px !important}
+  .problem-dashboard .metric-row{min-height:36px}
+  .research-page{grid-template-columns:.9fr 1.1fr !important;gap:12px !important}
+  .research-copy{padding-bottom:2vh}
+  .research-copy>span{margin-bottom:20px}
+  .pillar-card>.media-placeholder{width:min(70%,110px)}
+  .strategy-layout{grid-template-columns:1.15fr .85fr !important;gap:14px !important}
+  .strategy-step{min-height:40px}
+  .impact-content{grid-template-rows:auto auto 1fr !important}
+  .impact-grid{grid-column:1;grid-row:3;min-height:0}
+  .impact-grid article{min-height:160px}
+}
+
+/* ================================================================
+   V14.2 — FIXED TITLE DATUM + CONTINUOUS RESEARCH STRIP
+   ================================================================ */
+
+.story-index{
+  --headline-y:clamp(300px,46vh,410px);
+  --headline-offset:calc(var(--headline-y) - var(--section-top) - 10px);
+}
+
+.story-content{position:relative !important}
+
+/* Every standard chapter title starts on the same measured horizontal datum
+   as Overview. Impact and Research keep their intentional exceptions. */
+.problem-content>h2,
+.issues-content>h2,
+.strategy-content>h2,
+.reflection-content>h2,
+.reflection-content>p{
+  align-self:start !important;
+  margin-top:var(--headline-offset) !important;
+  margin-bottom:0 !important;
+}
+
+/* 02 — more space is assigned to the paired information fields. */
+.problem-content{
+  grid-template-columns:minmax(250px,.4fr) minmax(0,1.6fr) !important;
+}
+.problem-dashboard{
+  align-self:end !important;
+  margin-bottom:2.5vh !important;
+}
+
+/* 03 — preserve the approved footprint but restore readable type. */
+.issue-solution-card small{font-size:8px !important}
+.issue-solution-card strong{font-size:clamp(13px,1.15vw,17px) !important}
+.issue-solution-card p{font-size:clamp(10px,.82vw,12px) !important;opacity:.78 !important}
+
+/* 04 — safe lower edge and a fixed-width four-mark indicator. */
+.research-page{padding-bottom:calc(2.8vh + 18px) !important}
+.research-copy{padding-bottom:calc(4vh + 18px) !important}
+.research-progress{
+  left:0 !important;
+  bottom:18px !important;
+  display:flex !important;
+  width:190px !important;
+  gap:7px !important;
+}
+.research-progress i{
+  flex:1 1 0 !important;
+  width:auto !important;
+  height:1px !important;
+  transform:none !important;
+  background:rgba(23,59,99,.35) !important;
+  transition:flex-grow 220ms ease,height 160ms linear,background-color 160ms linear !important;
+}
+.research-progress i.is-active{
+  flex-grow:2.2 !important;
+  height:2px !important;
+  background:rgba(23,59,99,.82) !important;
+}
+
+/* 05 — the base grid clears the shared lower safety margin. */
+.pillar-grid{margin-bottom:2vh !important}
+
+/* 06 — same title datum as chapter 01; process remains locked to the base. */
+.strategy-content{
+  grid-template-columns:minmax(300px,.46fr) minmax(0,1.54fr) !important;
+}
+.strategy-content>h2{align-self:start !important}
+.strategy-layout{align-self:end !important;margin-bottom:2.5vh !important}
+
+/* 08 — the three impact fields occupy the complete section width. */
+.impact-content{
+  grid-template-columns:1fr !important;
+  grid-template-rows:auto auto minmax(0,1fr) !important;
+  column-gap:0 !important;
+}
+.impact-content>h2{
+  grid-column:1 !important;
+  grid-row:2 !important;
+}
+.impact-grid{
+  grid-column:1 !important;
+  grid-row:3 !important;
+  width:100% !important;
+  align-self:end !important;
+}
+
+/* 09 — headline and reflection copy share the same top coordinate. */
+.reflection-content{
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) !important;
+  grid-template-rows:auto minmax(0,1fr) !important;
+}
+.reflection-content>h2{grid-column:1 !important;grid-row:2 !important}
+.reflection-content>p{grid-column:2 !important;grid-row:2 !important}
+
+@media(max-width:1000px){
+  .problem-content{grid-template-columns:minmax(240px,.36fr) minmax(0,1.64fr) !important}
+  .problem-dashboard{gap:16px !important}
+  .problem-dashboard .metric-column header{padding:13px 0 16px;font-size:11px}
+  .problem-dashboard .metric-row{
+    min-height:54px;
+    grid-template-columns:minmax(98px,1fr) minmax(48px,.62fr) 21px;
+    gap:6px;
+  }
+  .problem-dashboard .metric-row>span{font-size:10px}
+  .problem-dashboard .metric-row>em{font-size:11px}
+  .strategy-content{grid-template-columns:minmax(300px,.46fr) minmax(0,1.54fr) !important}
+  .strategy-layout{grid-template-columns:minmax(260px,1.35fr) minmax(120px,.65fr) !important;gap:12px !important}
+  .reflection-content{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) !important}
+}
+
+@media(max-width:750px){
+  .story-index{
+    --headline-y:clamp(250px,43vh,330px);
+    --headline-offset:calc(var(--headline-y) - var(--section-top) - 10px);
+  }
+  .problem-content,.strategy-content,.reflection-content{grid-template-columns:1fr !important}
+  .problem-content>h2,.issues-content>h2,.strategy-content>h2,.reflection-content>h2,.reflection-content>p{
+    margin-top:0 !important;
+  }
+  .reflection-content>p{grid-column:1 !important;grid-row:3 !important}
+  .research-progress{width:150px !important;bottom:12px !important}
+}
+
+/* Exact correction for grid rows whose eyebrow metrics differ by 12px. */
+.problem-content>h2,
+.strategy-content>h2{
+  position:absolute !important;
+  grid-area:auto !important;
+  top:var(--headline-y) !important;
+  left:var(--section-x) !important;
+  margin:0 !important;
+}
+.problem-content>h2{width:min(34vw,420px) !important}
+.strategy-content>h2{width:min(38vw,480px) !important}
+
+@media(max-width:1000px){
+  .problem-content>h2{width:240px !important}
+  .strategy-content>h2{width:300px !important}
+}
+
+@media(max-width:750px){
+  .problem-content>h2,
+  .strategy-content>h2{
+    position:static !important;
+    width:auto !important;
+  }
+}
+
+/* Final Problem placement: full safe width above the headline. */
+.problem-dashboard{
+  position:absolute !important;
+  grid-column:1 / -1 !important;
+  grid-row:auto !important;
+  left:0 !important;
+  right:0 !important;
+  top:60px !important;
+  width:auto !important;
+  margin:0 !important;
+}
+.problem-dashboard .metric-row{min-height:54px !important}
+
+@media(max-width:750px){
+  .problem-dashboard{
+    position:static !important;
+    grid-column:1 !important;
+    width:100% !important;
+  }
+}
+
+/* Final Overview placement: exact shared headline datum. */
+.overview-main{
+  position:absolute !important;
+  grid-column:auto !important;
+  grid-row:auto !important;
+  left:0 !important;
+  right:0 !important;
+  top:var(--headline-y) !important;
+  width:auto !important;
+  margin:0 !important;
+}
+
+@media(max-width:750px){
+  .overview-main{position:static !important}
+}
+
+/* ================================================================
+   V14.14 — BOTTOM-ALIGNED EDITORIAL DATUM
+   Chapter 01 is the reference: every standard headline/copy block ends on
+   the same lower datum. Lateral modules share that datum without crossing
+   the safe area of their own chapter.
+   ================================================================ */
+
+.story-index{
+  --copy-block-bottom:clamp(116px,15.6vh,150px);
+  --problem-copy-width:min(40vw,420px);
+  --issues-copy-width:min(36vw,400px);
+}
+
+/* 01 — the complete headline + introduction composition is the datum. */
+.overview-main{
+  top:auto !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+}
+
+/* 02 — the two tables remain lateral to the headline and end with it. */
+.problem-content>h2{
+  top:auto !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:var(--section-x) !important;
+  width:var(--problem-copy-width) !important;
+}
+.problem-dashboard{
+  top:auto !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:calc(var(--section-x) + var(--problem-copy-width) + var(--module-gap)) !important;
+  right:var(--section-x) !important;
+  width:auto !important;
+  grid-column:auto !important;
+  grid-row:auto !important;
+  margin:0 !important;
+}
+
+/* 03 — a larger four-field plate, aligned to the title's lower edge. */
+.issues-content>h2{
+  position:absolute !important;
+  grid-area:auto !important;
+  top:auto !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:var(--section-x) !important;
+  width:var(--issues-copy-width) !important;
+  margin:0 !important;
+}
+.issue-solution-grid{
+  position:absolute !important;
+  top:auto !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:calc(var(--section-x) + var(--issues-copy-width) + var(--module-gap)) !important;
+  right:var(--section-x) !important;
+  width:auto !important;
+  height:min(54vh,465px) !important;
+  aspect-ratio:auto !important;
+  grid-column:auto !important;
+  grid-row:auto !important;
+  margin:0 !important;
+}
+
+/* 04 — a visible gutter separates pages; the copy ends on the datum. */
+.research-deck{
+  column-gap:clamp(24px,4vw,64px) !important;
+  transition:transform 540ms cubic-bezier(.22,.61,.36,1) !important;
+}
+.research-copy{
+  padding-bottom:max(
+    20px,
+    calc(var(--copy-block-bottom) - var(--section-bottom) - (2.8vh + 18px))
+  ) !important;
+}
+
+/* 06 and 09 use the same lower datum as chapter 01. */
+.strategy-content>h2,
+.reflection-content>h2,
+.reflection-content>p{
+  position:absolute !important;
+  grid-area:auto !important;
+  top:auto !important;
+  bottom:var(--copy-block-bottom) !important;
+  margin:0 !important;
+}
+.strategy-content>h2{
+  left:var(--section-x) !important;
+  width:min(38vw,480px) !important;
+}
+.reflection-content>h2{
+  left:var(--section-x) !important;
+  width:52% !important;
+}
+.reflection-content>p{
+  left:58% !important;
+  right:var(--section-x) !important;
+  width:auto !important;
+}
+
+@media(max-width:1000px){
+  .story-index{
+    --problem-copy-width:min(40vw,420px);
+    --issues-copy-width:min(36vw,400px);
+  }
+}
+
+@media(max-width:750px){
+  .story-index{--copy-block-bottom:72px}
+  .overview-main,
+  .problem-content>h2,
+  .problem-dashboard,
+  .issues-content>h2,
+  .issue-solution-grid,
+  .strategy-content>h2,
+  .reflection-content>h2,
+  .reflection-content>p{
+    position:static !important;
+    inset:auto !important;
+    width:auto !important;
+  }
+  .overview-main{margin-top:auto !important}
+  .problem-dashboard{margin-top:18px !important}
+  .issue-solution-grid{
+    width:100% !important;
+    height:auto !important;
+    aspect-ratio:1 !important;
+    margin-top:18px !important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .research-deck{transition-duration:1ms !important}
+}
+
+/* ================================================================
+   V15.1 — OVERVIEW EMPHASIS + MATCHED DATA WIDTH
+   ================================================================ */
+
+.overview-content{
+  --overview-title-width:clamp(720px,66vw,950px);
+  --overview-copy-width:clamp(320px,29vw,420px);
+  width:calc(
+    var(--overview-title-width) +
+    var(--overview-copy-width) +
+    var(--section-gap) +
+    (2 * var(--section-x))
+  ) !important;
+  min-width:100vw !important;
+}
+.overview-main{
+  right:auto !important;
+  width:calc(
+    var(--overview-title-width) +
+    var(--overview-copy-width) +
+    var(--section-gap)
+  ) !important;
+  grid-template-columns:var(--overview-title-width) var(--overview-copy-width) !important;
+  align-items:end !important;
+  isolation:isolate;
+}
+.overview-main::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:-24px;
+  right:-24px;
+  top:-42px;
+  bottom:-22px;
+  border-bottom:1px solid rgba(255,184,0,.68);
+  background:linear-gradient(
+    to top,
+    rgba(255,184,0,.15) 0%,
+    rgba(255,184,0,.075) 42%,
+    rgba(255,184,0,0) 100%
+  );
+  pointer-events:none;
+}
+.overview-main>*{position:relative;z-index:1}
+.overview-main h2{
+  font-size:clamp(82px,8vw,118px) !important;
+  line-height:.8 !important;
+  white-space:nowrap !important;
+}
+.overview-main .retail-lower{text-transform:none}
+.overview-main p{
+  align-self:end !important;
+  margin:0 0 .08em !important;
+  padding:0 !important;
+}
+
+/* The complete two-column field matches the 800px process table in 06. */
+.problem-content{grid-template-columns:max-content 800px !important}
+.problem-dashboard{
+  grid-template-columns:repeat(2,380px) !important;
+  width:800px !important;
+  gap:40px !important;
+}
+.problem-dashboard .metric-row{
+  grid-template-columns:minmax(150px,1.3fr) minmax(80px,.8fr) 28px !important;
+  gap:10px !important;
+}
+
+/* Keep the two Overview columns on separate vertical datums. */
+.overview-main{
+  bottom:auto !important;
+  height:calc(100% - (var(--visual-top) + 48px) - var(--copy-bottom)) !important;
+}
+
+/* V15.2 FINAL — this block must remain after every historical override. */
+.section-footer,
+.overview-content .story-meta.section-footer{
+  position:absolute !important;
+  z-index:12 !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  bottom:22px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  box-sizing:border-box !important;
+  width:auto !important;
+  min-height:28px !important;
+  margin:0 !important;
+  padding:9px 0 0 !important;
+  border-top:1px solid var(--navy,#173b63) !important;
+  color:var(--navy,#173b63) !important;
+  background:transparent !important;
+  font-size:9px !important;
+  font-weight:700 !important;
+  line-height:1 !important;
+  letter-spacing:.09em !important;
+}
+.overview-content{
+  --overview-copy-width:520px;
+  --overview-title-width:1040px;
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap) + (2 * var(--section-x))) !important;
+}
+.overview-main{
+  top:calc(var(--visual-top) + 48px) !important;
+  right:auto !important;
+  bottom:var(--copy-bottom) !important;
+  left:var(--section-x) !important;
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap)) !important;
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr) !important;
+  gap:var(--section-gap) !important;
+  align-items:stretch !important;
+}
+.overview-main::before{top:-26px !important;bottom:-20px !important;border-bottom:0 !important}
+.overview-main h2{
+  align-self:start !important;
+  width:100% !important;
+  font-size:clamp(92px,8.4vw,126px) !important;
+}
+.overview-main p{align-self:end !important;width:100% !important;max-width:none !important}
+.issue-solution-grid{
+  height:410px !important;
+  min-height:410px !important;
+  background:#fff !important;
+}
+.issue-solution-card,
+.issue-solution-card header,
+.issue-solution-card>div:first-of-type{background:#fff !important}
+.issue-solution-card>div+div{color:var(--cream,#f3eddf) !important;background:var(--navy,#173b63) !important}
+.issue-solution-card:nth-child(odd)>div+div{border-right:1px solid rgba(255,255,255,.92) !important}
+.system-title-row{top:28px !important;height:64px !important}
+.system-backbone{top:108px !important;height:42px !important}
+.pillar-card header{min-height:70px !important;font-size:21px !important;line-height:1 !important}
+.strategy-media-item figcaption{min-height:92px !important;grid-template-columns:38px 1fr !important;padding:14px 16px !important}
+.strategy-media-item figcaption strong{font-size:21px !important;line-height:1 !important}
+.strategy-media-item figcaption span{font-size:15px !important;line-height:1.15 !important}
+.impact-content{width:calc((4 * 380px) + (2 * var(--section-x))) !important}
+.impact-grid{grid-template-columns:repeat(4,380px) !important}
+.impact-grid article{
+  color:var(--cream,#f3eddf) !important;
+  background:var(--navy,#173b63) !important;
+  border-color:rgba(243,237,223,.72) !important;
+}
+.impact-grid b{color:#ffb800 !important}
+.impact-grid strong{color:#fff !important}
+.impact-grid span{color:var(--cream,#f3eddf) !important;opacity:.82 !important}
+@media(max-width:900px){
+  .overview-content{--overview-copy-width:420px;--overview-title-width:840px}
+  .overview-main h2{font-size:82px !important}
+  .section-footer,
+  .overview-content .story-meta.section-footer{font-size:8px !important}
+}
+
+/* ================================================================
+   V15.2 — REVIEW PASS
+   Shared chapter footer, revised Overview hierarchy and final QA notes.
+   ================================================================ */
+
+/* One consistent blue datum and the original project metadata. */
+.section-footer,
+.overview-content .story-meta.section-footer{
+  position:absolute !important;
+  z-index:12 !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  bottom:22px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  box-sizing:border-box !important;
+  width:auto !important;
+  min-height:28px !important;
+  margin:0 !important;
+  padding:9px 0 0 !important;
+  border-top:1px solid var(--navy,#173b63) !important;
+  color:var(--navy,#173b63) !important;
+  background:transparent !important;
+  font-size:9px !important;
+  font-weight:700 !important;
+  line-height:1 !important;
+  letter-spacing:.09em !important;
+}
+
+/* 01 — headline owns two thirds; copy keeps its right edge and grows left. */
+.overview-content{
+  --overview-copy-width:520px;
+  --overview-title-width:1040px;
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap) + (2 * var(--section-x))) !important;
+}
+.overview-main{
+  top:calc(var(--visual-top) + 48px) !important;
+  right:auto !important;
+  bottom:var(--copy-bottom) !important;
+  left:var(--section-x) !important;
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap)) !important;
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr) !important;
+  gap:var(--section-gap) !important;
+  align-items:stretch !important;
+}
+.overview-main::before{
+  top:-26px !important;
+  bottom:-20px !important;
+  border-bottom:0 !important;
+}
+.overview-main h2{
+  align-self:start !important;
+  width:100% !important;
+  font-size:clamp(92px,8.4vw,126px) !important;
+}
+.overview-main p{
+  align-self:end !important;
+  width:100% !important;
+  max-width:none !important;
+}
+
+/* 03 — compact, equal cells on a white matrix. */
+.issue-solution-grid{
+  height:410px !important;
+  min-height:410px !important;
+  background:#fff !important;
+}
+.issue-solution-card,
+.issue-solution-card header,
+.issue-solution-card>div:first-of-type{
+  background:#fff !important;
+}
+.issue-solution-card>div+div{
+  color:var(--cream,#f3eddf) !important;
+  background:var(--navy,#173b63) !important;
+}
+.issue-solution-card:nth-child(odd)>div+div{
+  border-right:1px solid rgba(255,255,255,.92) !important;
+}
+
+/* 05 — architecture bar and copy clear the image tops by a visible gap. */
+.system-title-row{
+  top:38px !important;
+  height:78px !important;
+}
+.system-backbone{
+  top:132px !important;
+  height:42px !important;
+}
+.pillar-card header{
+  min-height:70px !important;
+  font-size:21px !important;
+  line-height:1 !important;
+}
+
+/* 06 — larger labels on all four editorial image captions. */
+.strategy-media-item figcaption{
+  min-height:92px !important;
+  grid-template-columns:38px 1fr !important;
+  padding:14px 16px !important;
+}
+.strategy-media-item figcaption strong{
+  font-size:21px !important;
+  line-height:1 !important;
+}
+.strategy-media-item figcaption span{
+  font-size:15px !important;
+  line-height:1.15 !important;
+}
+
+/* 08 — four equal navy business indicators. */
+.impact-content{
+  width:calc((4 * 380px) + (2 * var(--section-x))) !important;
+}
+.impact-grid{
+  grid-template-columns:repeat(4,380px) !important;
+}
+.impact-grid article{
+  color:var(--cream,#f3eddf) !important;
+  background:var(--navy,#173b63) !important;
+  border-color:rgba(243,237,223,.72) !important;
+}
+.impact-grid b{color:#ffb800 !important}
+.impact-grid strong{color:#fff !important}
+.impact-grid span{color:var(--cream,#f3eddf) !important;opacity:.82 !important}
+
+@media(max-width:900px){
+  .overview-content{
+    --overview-copy-width:420px;
+    --overview-title-width:840px;
+  }
+  .overview-main h2{font-size:82px !important}
+  .section-footer,
+  .overview-content .story-meta.section-footer{font-size:8px !important}
+}
+
+/* ================================================================
+   V14.16 — ONE EDITORIAL FRAME
+   Copy and adjacent data/media modules now use the same lower datum.
+   Full-height modules also share one upper datum across chapters.
+   ================================================================ */
+
+.story-index{
+  --content-frame-top:clamp(26px,3.35vh,34px);
+  --problem-copy-width:min(38vw,410px);
+  --issues-copy-width:min(32vw,370px);
+  --strategy-copy-width:min(32vw,390px);
+}
+
+/* 02 — equal top/bottom bounds and perfectly coincident internal rules. */
+.problem-content>h2{width:var(--problem-copy-width) !important}
+.problem-dashboard{
+  top:var(--content-frame-top) !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:calc(var(--section-x) + var(--problem-copy-width) + var(--module-gap)) !important;
+  height:auto !important;
+  align-self:stretch !important;
+  align-items:stretch !important;
+}
+.problem-dashboard .metric-column{
+  display:grid !important;
+  grid-template-rows:auto repeat(5,minmax(0,1fr)) !important;
+  height:100% !important;
+}
+.problem-dashboard .metric-column header{
+  min-height:48px !important;
+  align-items:center !important;
+}
+.problem-dashboard .metric-row{
+  min-height:0 !important;
+  height:auto !important;
+}
+
+/* 03 — same vertical frame used by the Research images. */
+.issues-content>h2{width:var(--issues-copy-width) !important}
+.issue-solution-grid{
+  top:var(--content-frame-top) !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:calc(var(--section-x) + var(--issues-copy-width) + var(--module-gap)) !important;
+  height:auto !important;
+  align-self:stretch !important;
+}
+
+/* 04 — copy and imagery finish on the common lower datum. */
+.research-page{
+  padding-bottom:calc(var(--copy-block-bottom) - var(--section-bottom)) !important;
+}
+.research-copy{padding-bottom:0 !important}
+
+/* 05 — centered labels, larger copy and four equal, shorter bases. */
+.pillar-grid{
+  position:absolute !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  bottom:var(--copy-block-bottom) !important;
+  width:auto !important;
+  height:clamp(118px,15vh,138px) !important;
+  min-height:0 !important;
+  margin:0 !important;
+}
+.pillar-card header{
+  display:grid !important;
+  grid-template-columns:24px minmax(0,1fr) 24px !important;
+  align-items:center !important;
+  min-height:46px !important;
+  padding:8px 10px !important;
+  font-size:clamp(10px,.95vw,13px) !important;
+  line-height:1.05 !important;
+}
+.pillar-card header b{grid-column:1;text-align:left}
+.pillar-card header span{
+  grid-column:2;
+  text-align:center !important;
+  align-self:center !important;
+}
+.pillar-card p{
+  padding:10px 12px !important;
+  font-size:clamp(11px,1vw,14px) !important;
+  line-height:1.22 !important;
+}
+.pillar-card>.media-placeholder{width:min(68%,165px) !important}
+
+/* 06 — one large right-hand block inside the shared editorial frame. */
+.strategy-content>h2{width:var(--strategy-copy-width) !important}
+.strategy-layout{
+  position:absolute !important;
+  grid-area:auto !important;
+  top:var(--content-frame-top) !important;
+  bottom:var(--copy-block-bottom) !important;
+  left:calc(var(--section-x) + var(--strategy-copy-width) + var(--module-gap)) !important;
+  right:var(--section-x) !important;
+  width:auto !important;
+  height:auto !important;
+  margin:0 !important;
+  align-self:auto !important;
+}
+.strategy-pipeline{
+  display:grid !important;
+  grid-template-rows:repeat(5,minmax(0,1fr)) auto !important;
+  height:100% !important;
+}
+.strategy-step{min-height:0 !important}
+.strategy-media-grid{height:100% !important}
+.strategy-media-grid .media-placeholder{
+  height:100% !important;
+  aspect-ratio:auto !important;
+}
+
+/* 08 — stronger title; the three equal fields retain the common lower line. */
+.impact-content>h2{
+  font-size:clamp(70px,9vw,118px) !important;
+  line-height:.82 !important;
+}
+.impact-grid{
+  position:absolute !important;
+  grid-area:auto !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  bottom:var(--copy-block-bottom) !important;
+  width:auto !important;
+  height:clamp(184px,24vh,224px) !important;
+  margin:0 !important;
+}
+.impact-grid article{min-height:0 !important}
+
+/* 09 — headline and paragraph become one left-aligned vertical block. */
+.reflection-copy-block{
+  position:absolute;
+  left:var(--section-x);
+  right:var(--section-x);
+  bottom:var(--copy-block-bottom);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  margin:0;
+}
+.reflection-copy-block h2{
+  width:100%;
+  margin:0 !important;
+  font-size:clamp(62px,8.4vw,112px) !important;
+  line-height:.82 !important;
+  letter-spacing:-.055em !important;
+}
+.reflection-copy-block p{
+  width:min(72%,760px);
+  max-width:none;
+  margin:clamp(22px,3vh,34px) 0 0 !important;
+  font-size:clamp(17px,1.8vw,27px) !important;
+  line-height:1.28;
+  text-align:left;
+}
+
+@media(max-width:750px){
+  .problem-dashboard,
+  .issue-solution-grid,
+  .strategy-layout,
+  .pillar-grid,
+  .impact-grid,
+  .reflection-copy-block{
+    position:static !important;
+    inset:auto !important;
+    width:auto !important;
+  }
+  .strategy-layout{height:auto !important;margin-top:18px !important}
+  .pillar-grid{height:130px !important}
+  .reflection-copy-block p{width:100%}
+}
+
+/* ================================================================
+   V15 — CONTENT-DRIVEN CANVAS
+   1440px is a viewport, never a chapter cap. Every chapter below derives
+   its width from its own columns; equal inner margins separate chapters.
+   The 684px reference canvas is 76vh at the 1440 × 900 art direction size.
+   ================================================================ */
+
+.story-index{
+  --section-x:clamp(44px,4.45vw,72px);
+  --section-gap:clamp(84px,8.3vw,120px);
+  --visual-top:30px;
+  --visual-bottom:108px;
+  --copy-bottom:140px;
+  --visual-height:calc(76vh - var(--visual-top) - var(--visual-bottom));
+  --headline-size:clamp(64px,6.6vw,96px);
+}
+
+.story-content-track{
+  top:24vh !important;
+  right:auto !important;
+  bottom:auto !important;
+  display:flex !important;
+  align-items:stretch !important;
+  width:max-content !important;
+  height:76vh !important;
+  transition:none !important;
+}
+
+.story-content{
+  position:relative !important;
+  flex:0 0 auto !important;
+  width:max-content !important;
+  min-width:100vw !important;
+  height:76vh !important;
+  box-sizing:border-box !important;
+  padding:0 var(--section-x) !important;
+  overflow:visible !important;
+  background:transparent !important;
+}
+
+.story-eyebrow{
+  position:absolute !important;
+  z-index:6;
+  top:var(--visual-top) !important;
+  left:var(--section-x) !important;
+  margin:0 !important;
+  font-size:12px !important;
+  line-height:1 !important;
+  letter-spacing:.09em !important;
+}
+
+.overview-main h2,
+.problem-content>h2,
+.issues-content>h2,
+.strategy-content>h2,
+.impact-content>h2{
+  font-size:var(--headline-size) !important;
+  line-height:.82 !important;
+  letter-spacing:-.058em !important;
+}
+
+/* 01 — reference copy datum. */
+.overview-content{width:100vw !important}
+.overview-main{
+  position:absolute !important;
+  inset:auto var(--section-x) var(--copy-bottom) var(--section-x) !important;
+  display:grid !important;
+  grid-template-columns:minmax(520px,1.2fr) minmax(310px,.8fr) !important;
+  gap:var(--section-gap) !important;
+  width:auto !important;
+  margin:0 !important;
+  align-items:start !important;
+}
+.overview-main p{font-size:18px !important;line-height:1.35 !important}
+.overview-content .story-meta{display:none !important}
+
+/* 02 — headline and two equal-height tables, with width supplied by content. */
+.problem-content{
+  display:grid !important;
+  grid-template-columns:max-content 1160px !important;
+  grid-template-rows:1fr !important;
+  column-gap:var(--section-gap) !important;
+  align-items:stretch !important;
+}
+.problem-content>h2{
+  position:static !important;
+  grid-column:1 !important;
+  grid-row:1 !important;
+  align-self:end !important;
+  width:max-content !important;
+  margin:0 0 var(--copy-bottom) !important;
+  white-space:nowrap !important;
+}
+.problem-dashboard{
+  position:static !important;
+  grid-column:2 !important;
+  grid-row:1 !important;
+  align-self:start !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,560px) !important;
+  gap:40px !important;
+  width:1160px !important;
+  height:var(--visual-height) !important;
+  margin:var(--visual-top) 0 0 !important;
+}
+.problem-dashboard .metric-column{
+  display:grid !important;
+  grid-template-rows:64px repeat(5,1fr) !important;
+  height:100% !important;
+}
+.problem-dashboard .metric-column header{
+  min-height:0 !important;
+  padding:0 0 18px !important;
+  align-items:end !important;
+  font-size:14px !important;
+  letter-spacing:.08em !important;
+}
+.problem-dashboard .metric-column header span{font-size:12px !important}
+.problem-dashboard .metric-row{
+  min-height:0 !important;
+  grid-template-columns:minmax(190px,1.35fr) minmax(120px,.9fr) 28px !important;
+  gap:14px !important;
+}
+.problem-dashboard .metric-row>span{font-size:14px !important;line-height:1.05 !important}
+.problem-dashboard .metric-row>i{height:9px !important}
+.problem-dashboard .metric-row>em{font-size:14px !important}
+
+/* 03 — large A4-like matrix, ending on the common visual datum. */
+.issues-content{
+  display:grid !important;
+  grid-template-columns:max-content 1120px !important;
+  grid-template-rows:1fr !important;
+  column-gap:var(--section-gap) !important;
+  align-items:stretch !important;
+}
+.issues-content>h2{
+  position:static !important;
+  grid-column:1 !important;
+  grid-row:1 !important;
+  align-self:end !important;
+  width:max-content !important;
+  margin:0 0 var(--copy-bottom) !important;
+  white-space:nowrap !important;
+}
+.issue-solution-grid{
+  position:static !important;
+  grid-column:2 !important;
+  grid-row:1 !important;
+  align-self:start !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,560px) !important;
+  grid-template-rows:repeat(2,1fr) !important;
+  width:1120px !important;
+  height:var(--visual-height) !important;
+  margin:var(--visual-top) 0 0 !important;
+}
+.issue-solution-card{
+  grid-template-rows:50px 1fr 1fr !important;
+}
+.issue-solution-card header{padding:14px 16px !important;font-size:12px !important}
+.issue-solution-card>div{padding:15px 16px !important}
+.issue-solution-card small{font-size:10px !important}
+.issue-solution-card strong{font-size:clamp(18px,1.55vw,24px) !important;line-height:1 !important}
+.issue-solution-card p{margin-top:10px !important;font-size:15px !important;line-height:1.25 !important}
+
+/* 04 — one viewport-wide locked stage with four complete internal slides. */
+.research-content{
+  display:block !important;
+  width:100vw !important;
+  min-width:100vw !important;
+  overflow:hidden !important;
+}
+.research-window{
+  position:absolute !important;
+  inset:var(--visual-top) var(--section-x) var(--visual-bottom) var(--section-x) !important;
+  width:auto !important;
+  height:auto !important;
+  margin:0 !important;
+  overflow:hidden !important;
+}
+.research-deck{
+  display:flex !important;
+  width:max-content !important;
+  height:100% !important;
+  column-gap:clamp(40px,4vw,64px) !important;
+  transition:transform 420ms cubic-bezier(.22,.61,.36,1) !important;
+}
+.research-deck.is-jumping{transition:none !important}
+.research-page{
+  flex:0 0 calc(100vw - (2 * var(--section-x))) !important;
+  width:calc(100vw - (2 * var(--section-x))) !important;
+  height:100% !important;
+  box-sizing:border-box !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,39fr) minmax(0,61fr) !important;
+  gap:clamp(34px,4.5vw,68px) !important;
+  padding:0 !important;
+}
+.research-copy{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-end !important;
+  box-sizing:border-box !important;
+  min-width:0 !important;
+  padding:0 0 32px !important;
+}
+.research-copy>span{
+  position:absolute !important;
+  top:34% !important;
+  left:0 !important;
+  margin:0 !important;
+  font-size:12px !important;
+  line-height:1 !important;
+}
+.research-copy h2{
+  margin:0 0 24px !important;
+  font-size:clamp(43px,5.2vw,76px) !important;
+  line-height:.84 !important;
+}
+.research-copy p{
+  width:100% !important;
+  max-width:520px !important;
+  margin:0 !important;
+  font-size:clamp(15px,1.25vw,19px) !important;
+  line-height:1.35 !important;
+}
+.research-art{height:100% !important;min-height:0 !important}
+.research-progress{
+  position:absolute !important;
+  z-index:20 !important;
+  left:var(--section-x) !important;
+  bottom:0 !important;
+  display:flex !important;
+  width:220px !important;
+  gap:9px !important;
+  padding:0 !important;
+  background:transparent !important;
+}
+.research-progress button{
+  flex:1 1 0;
+  height:18px;
+  margin:0;
+  padding:8px 0;
+  border:0;
+  background:linear-gradient(rgba(23,59,99,.25),rgba(23,59,99,.25)) center/100% 2px no-repeat;
+  cursor:pointer;
+}
+.research-progress button.is-active{
+  flex-grow:2.2;
+  background-image:linear-gradient(#173b63,#173b63);
+}
+
+/* 05 — aligned title baseline, navy category headers, adaptive copy bases. */
+.system-architecture-content{
+  display:block !important;
+  width:calc((4 * 330px) + (2 * var(--section-x))) !important;
+  min-width:100vw !important;
+}
+.system-title-row{
+  position:absolute !important;
+  top:74px !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:space-between !important;
+  height:94px !important;
+  margin:0 !important;
+}
+.system-title-row h2,
+.system-title-row>strong{
+  margin:0 !important;
+  font-size:clamp(58px,6.1vw,88px) !important;
+  line-height:.82 !important;
+}
+.system-title-row>strong{max-width:none !important}
+.system-backbone{
+  position:absolute !important;
+  top:188px !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  height:46px !important;
+  box-sizing:border-box !important;
+  grid-template-columns:190px 1fr 390px !important;
+  padding:0 16px !important;
+}
+.system-backbone span,.system-backbone small{font-size:9px !important}
+.system-backbone strong{font-size:15px !important}
+.pillar-grid{
+  position:absolute !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  bottom:var(--visual-bottom) !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,330px) !important;
+  width:auto !important;
+  height:148px !important;
+  min-height:0 !important;
+  margin:0 !important;
+  overflow:visible !important;
+}
+.pillar-card{
+  display:grid !important;
+  grid-template-rows:auto 1fr !important;
+  height:148px !important;
+}
+.pillar-card header{
+  display:grid !important;
+  grid-template-columns:34px 1fr !important;
+  align-items:center !important;
+  min-height:62px !important;
+  padding:12px 15px !important;
+  color:var(--cream,#f3eddf) !important;
+  background:var(--navy,#173b63) !important;
+  font-size:15px !important;
+  line-height:1.04 !important;
+}
+.pillar-card header b{grid-column:1 !important;color:#ffb800 !important}
+.pillar-card header span{grid-column:2 !important;text-align:center !important}
+.pillar-card p{
+  align-self:stretch !important;
+  box-sizing:border-box !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:14px 16px !important;
+  font-size:17px !important;
+  line-height:1.22 !important;
+  text-align:left !important;
+}
+.pillar-card>.media-placeholder{
+  position:absolute !important;
+  left:50% !important;
+  bottom:calc(100% + 18px) !important;
+  width:180px !important;
+  height:180px !important;
+  transform:translateX(-50%) !important;
+}
+
+/* 06 — long sequence: copy, large process table, four equal 4:5 images. */
+.strategy-content{
+  display:grid !important;
+  grid-template-columns:max-content max-content !important;
+  grid-template-rows:1fr !important;
+  column-gap:var(--section-gap) !important;
+  align-items:stretch !important;
+}
+.strategy-content>h2{
+  position:static !important;
+  grid-column:1 !important;
+  grid-row:1 !important;
+  align-self:end !important;
+  width:max-content !important;
+  margin:0 0 var(--copy-bottom) !important;
+  white-space:nowrap !important;
+}
+.strategy-layout{
+  position:static !important;
+  grid-column:2 !important;
+  grid-row:1 !important;
+  align-self:start !important;
+  display:flex !important;
+  align-items:stretch !important;
+  gap:84px !important;
+  width:max-content !important;
+  height:var(--visual-height) !important;
+  margin:var(--visual-top) 0 0 !important;
+}
+.strategy-pipeline{
+  display:grid !important;
+  grid-template-rows:repeat(5,1fr) 60px !important;
+  flex:0 0 800px !important;
+  width:800px !important;
+  height:100% !important;
+}
+.strategy-step{
+  display:grid !important;
+  grid-template-columns:52px 250px 1fr !important;
+  align-items:center !important;
+  gap:24px !important;
+  min-height:0 !important;
+  padding:0 18px !important;
+}
+.strategy-step b{font-size:17px !important}
+.strategy-step strong{font-size:20px !important;line-height:1 !important}
+.strategy-step span{font-size:19px !important;line-height:1.18 !important}
+.strategy-loop{min-height:60px !important;padding:0 18px !important;font-size:13px !important}
+.strategy-media-grid{
+  display:flex !important;
+  flex:0 0 auto !important;
+  align-items:stretch !important;
+  gap:72px !important;
+  width:max-content !important;
+  height:100% !important;
+  overflow:visible !important;
+}
+.strategy-media-item{
+  position:relative;
+  flex:0 0 calc(var(--visual-height) * .8);
+  width:calc(var(--visual-height) * .8);
+  height:100%;
+  margin:0;
+  overflow:visible;
+}
+.strategy-media-item>.media-placeholder{
+  width:100% !important;
+  height:100% !important;
+  aspect-ratio:4/5 !important;
+}
+.strategy-media-item>.media-placeholder b{font-size:clamp(54px,5vw,76px) !important}
+.strategy-media-item figcaption{
+  position:absolute;
+  z-index:5;
+  left:-12px;
+  right:-12px;
+  bottom:-16px;
+  display:grid;
+  grid-template-columns:36px 1fr;
+  grid-template-rows:auto auto;
+  gap:5px 10px;
+  box-sizing:border-box;
+  min-height:78px;
+  padding:13px 15px;
+  color:var(--cream,#f3eddf);
+  background:var(--navy,#173b63);
+}
+.strategy-media-item figcaption b{grid-row:1/3;color:#ffb800;font-size:13px}
+.strategy-media-item figcaption strong{font-size:15px;line-height:1}
+.strategy-media-item figcaption span{font-size:12px;line-height:1.15;opacity:.78}
+
+/* 07 — reserved chapter remains one viewport. */
+.selected-content{width:100vw !important;min-width:100vw !important}
+
+/* 08 — stronger business-led close; Reflection is intentionally removed. */
+.impact-content{
+  display:block !important;
+  width:calc((3 * 420px) + (2 * var(--section-x))) !important;
+  min-width:100vw !important;
+}
+.impact-content>h2{
+  position:absolute !important;
+  top:96px !important;
+  left:var(--section-x) !important;
+  width:max-content !important;
+  margin:0 !important;
+  font-size:clamp(88px,10.5vw,152px) !important;
+  line-height:.78 !important;
+}
+.impact-grid{
+  position:absolute !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  bottom:var(--visual-bottom) !important;
+  display:grid !important;
+  grid-template-columns:repeat(3,420px) !important;
+  width:auto !important;
+  height:230px !important;
+  margin:0 !important;
+}
+.impact-grid article{min-height:0 !important;padding:20px !important}
+.impact-grid strong{font-size:24px !important}
+.impact-grid span{font-size:16px !important}
+
+@media(max-width:900px){
+  .story-index{
+    --section-x:42px;
+    --section-gap:92px;
+    --headline-size:64px;
+  }
+  .overview-main{grid-template-columns:470px 280px !important;gap:72px !important}
+  .research-page{grid-template-columns:38fr 62fr !important;gap:36px !important}
+  .research-copy h2{font-size:44px !important}
+  .research-copy p{font-size:15px !important}
+  .system-title-row h2,.system-title-row>strong{font-size:58px !important}
+}
+
+@media(max-height:760px){
+  .story-index{
+    --visual-top:24px;
+    --visual-bottom:76px;
+    --copy-bottom:104px;
+    --visual-height:calc(76vh - var(--visual-top) - var(--visual-bottom));
+  }
+  .system-title-row{top:58px !important;height:76px !important}
+  .system-backbone{top:148px !important}
+  .pillar-grid{height:132px !important}
+  .pillar-card{height:132px !important}
+  .pillar-card>.media-placeholder{width:150px !important;height:150px !important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .research-deck{transition-duration:1ms !important}
+}
+
+/* ================================================================
+   V15.3 — layout corrections from the second review pass.
+   These selectors intentionally carry body-level specificity so the
+   historical compatibility block below cannot supersede them.
+   ================================================================ */
+
+body.case-page .overview-content{
+  width:min(100vw,1440px) !important;
+  min-width:min(100vw,1440px) !important;
+}
+body.case-page .overview-main{
+  top:calc(var(--visual-top) + 48px) !important;
+  right:var(--section-x) !important;
+  bottom:auto !important;
+  left:var(--section-x) !important;
+  width:auto !important;
+  height:calc(100% - (var(--visual-top) + 48px) - var(--copy-bottom)) !important;
+  grid-template-columns:minmax(0,1fr) clamp(380px,29vw,430px) !important;
+  gap:clamp(42px,3.2vw,48px) !important;
+}
+body.case-page .overview-main h2{
+  width:calc(100% + 170px) !important;
+  font-size:clamp(80px,6.35vw,96px) !important;
+}
+body.case-page .overview-main p{
+  width:100% !important;
+  font-size:clamp(20px,1.59vw,24px) !important;
+  line-height:1.28 !important;
+}
+body.case-page .overview-main::before{
+  left:0 !important;
+  right:0 !important;
+  top:-24px !important;
+  bottom:calc(50px - var(--copy-bottom)) !important;
+}
+
+body.case-page .issues-content{
+  grid-template-columns:max-content 960px !important;
+}
+body.case-page .issue-solution-grid{
+  grid-template-columns:repeat(2,480px) !important;
+  width:960px !important;
+  height:var(--visual-height) !important;
+  min-height:var(--visual-height) !important;
+}
+body.case-page .issue-solution-card>div{padding:20px 16px 16px !important}
+
+body.case-page .research-copy>span{
+  position:static !important;
+  display:block !important;
+  margin:0 0 20px !important;
+}
+body.case-page .research-copy h2{margin:0 0 24px !important}
+
+body.case-page .system-title-row{
+  top:calc(var(--visual-top) + 24px) !important;
+  height:61px !important;
+}
+body.case-page .system-title-row h2,
+body.case-page .system-title-row>strong{font-size:clamp(54px,5vw,74px) !important}
+body.case-page .system-title-row>strong{max-width:none !important;white-space:nowrap !important}
+body.case-page .system-backbone{
+  top:calc(var(--visual-top) + 96px) !important;
+  height:36px !important;
+}
+
+body.case-page .impact-content{
+  width:calc((4 * 340px) + (3 * 10px) + (2 * var(--section-x))) !important;
+}
+body.case-page .impact-grid{
+  grid-template-columns:repeat(4,340px) !important;
+  gap:10px !important;
+  height:140px !important;
+  overflow:visible !important;
+}
+body.case-page .impact-grid article{
+  position:relative !important;
+  box-sizing:border-box !important;
+  height:140px !important;
+  padding:16px 48px 16px 34px !important;
+  clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%,22px 50%) !important;
+  transform-origin:center bottom !important;
+  transition:transform 520ms cubic-bezier(.2,.75,.2,1),filter 520ms ease,opacity 420ms ease !important;
+  will-change:transform !important;
+}
+body.case-page .impact-grid article:first-child{
+  padding-left:18px !important;
+  clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%) !important;
+}
+body.case-page .impact-grid article:hover,
+body.case-page .impact-grid article:focus-visible{
+  z-index:4 !important;
+  transform:scale(1.055) !important;
+  filter:drop-shadow(0 12px 15px rgba(23,59,99,.18)) !important;
+  outline:none !important;
+}
+body.case-page .impact-grid:has(article:hover) article:not(:hover){
+  transform:scale(.975) !important;
+  opacity:.82 !important;
+}
+
+@media(max-width:900px){
+  body.case-page .overview-main{grid-template-columns:minmax(0,1fr) 280px !important;gap:36px !important}
+  body.case-page .overview-main h2{font-size:54px !important}
+  body.case-page .impact-grid{grid-template-columns:repeat(4,310px) !important}
+  body.case-page .impact-content{width:calc((4 * 310px) + (3 * 10px) + (2 * var(--section-x))) !important}
+}
+
+/* V15.1 final overrides — kept last so no historical pass can supersede it. */
+.overview-content{
+  --overview-title-width:clamp(720px,66vw,950px);
+  --overview-copy-width:clamp(320px,29vw,420px);
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap) + (2 * var(--section-x))) !important;
+  min-width:100vw !important;
+}
+.overview-main{
+  right:auto !important;
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap)) !important;
+  grid-template-columns:var(--overview-title-width) var(--overview-copy-width) !important;
+  gap:var(--section-gap) !important;
+  align-items:end !important;
+  isolation:isolate;
+}
+.overview-main::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:-24px;
+  right:-24px;
+  top:-42px;
+  bottom:-22px;
+  border-bottom:1px solid rgba(255,184,0,.68);
+  background:linear-gradient(to top,rgba(255,184,0,.15),rgba(255,184,0,.075) 42%,rgba(255,184,0,0));
+  pointer-events:none;
+}
+.overview-main>*{position:relative;z-index:1}
+.overview-main h2{
+  font-size:clamp(82px,8vw,118px) !important;
+  line-height:.8 !important;
+  white-space:nowrap !important;
+}
+.overview-main .retail-lower{text-transform:none}
+.overview-main p{align-self:end !important;margin:0 !important;padding:0 !important}
+.problem-content{grid-template-columns:max-content 800px !important}
+.problem-dashboard{grid-template-columns:repeat(2,380px) !important;width:800px !important;gap:40px !important}
+.problem-dashboard .metric-row{
+  grid-template-columns:minmax(150px,1.3fr) minmax(80px,.8fr) 28px !important;
+  gap:10px !important;
+}
+
+/* Keep the two Overview columns on separate vertical datums. */
+.overview-main{
+  bottom:auto !important;
+  height:calc(100% - (var(--visual-top) + 48px) - var(--copy-bottom)) !important;
+}
+
+/* V15.2 FINAL — this block must remain after every historical override. */
+.section-footer,
+.overview-content .story-meta.section-footer{
+  position:absolute !important;
+  z-index:12 !important;
+  left:var(--section-x) !important;
+  right:var(--section-x) !important;
+  bottom:22px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  box-sizing:border-box !important;
+  width:auto !important;
+  min-height:28px !important;
+  margin:0 !important;
+  padding:9px 0 0 !important;
+  border-top:1px solid var(--navy,#173b63) !important;
+  color:var(--navy,#173b63) !important;
+  background:transparent !important;
+  font-size:9px !important;
+  font-weight:700 !important;
+  line-height:1 !important;
+  letter-spacing:.09em !important;
+}
+.overview-content{
+  --overview-copy-width:520px;
+  --overview-title-width:1040px;
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap) + (2 * var(--section-x))) !important;
+}
+.overview-main{
+  top:calc(var(--visual-top) + 48px) !important;
+  right:auto !important;
+  bottom:var(--copy-bottom) !important;
+  left:var(--section-x) !important;
+  width:calc(var(--overview-title-width) + var(--overview-copy-width) + var(--section-gap)) !important;
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr) !important;
+  gap:var(--section-gap) !important;
+  align-items:stretch !important;
+}
+.overview-main::before{top:-26px !important;bottom:-20px !important;border-bottom:0 !important}
+.overview-main h2{align-self:start !important;width:100% !important;font-size:clamp(92px,8.4vw,126px) !important}
+.overview-main p{align-self:end !important;width:100% !important;max-width:none !important}
+.issue-solution-grid{height:410px !important;min-height:410px !important;background:#fff !important}
+.issue-solution-card,
+.issue-solution-card header,
+.issue-solution-card>div:first-of-type{background:#fff !important}
+.issue-solution-card>div+div{color:var(--cream,#f3eddf) !important;background:var(--navy,#173b63) !important}
+.issue-solution-card:nth-child(odd)>div+div{border-right:1px solid rgba(255,255,255,.92) !important}
+.system-title-row{top:28px !important;height:64px !important}
+.system-backbone{top:108px !important;height:42px !important}
+.pillar-card header{min-height:70px !important;font-size:21px !important;line-height:1 !important}
+.strategy-media-item figcaption{min-height:92px !important;grid-template-columns:38px 1fr !important;padding:14px 16px !important}
+.strategy-media-item figcaption strong{font-size:21px !important;line-height:1 !important}
+.strategy-media-item figcaption span{font-size:15px !important;line-height:1.15 !important}
+.impact-content{width:calc((4 * 380px) + (2 * var(--section-x))) !important}
+.impact-grid{grid-template-columns:repeat(4,380px) !important}
+.impact-grid article{color:var(--cream,#f3eddf) !important;background:var(--navy,#173b63) !important;border-color:rgba(243,237,223,.72) !important}
+.impact-grid b{color:#ffb800 !important}
+.impact-grid strong{color:#fff !important}
+.impact-grid span{color:var(--cream,#f3eddf) !important;opacity:.82 !important}
+@media(max-width:900px){
+  .overview-content{--overview-copy-width:420px;--overview-title-width:840px}
+  .overview-main h2{font-size:82px !important}
+  .section-footer,
+  .overview-content .story-meta.section-footer{font-size:8px !important}
+}

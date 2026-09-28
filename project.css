@@ -1,0 +1,1013 @@
+
+.case-page{overflow-x:hidden}
+.case-page .site-header{position:relative}
+.case-hero{padding:32px var(--page-x,34px) 46px;min-height:82vh;display:flex;flex-direction:column;justify-content:space-between}
+.case-kicker,.case-hero-bottom,.section-cap{font-size:11px;letter-spacing:.08em}
+.case-kicker{display:flex;justify-content:space-between;border-bottom:1px solid currentColor;padding-bottom:12px}
+.case-title{position:relative;padding-top:35px}
+.case-title h1{font-size:clamp(76px,13.5vw,220px);line-height:.72;letter-spacing:-.075em;margin:0;font-weight:700}
+.case-brief-line{display:inline-flex;align-items:baseline;gap:clamp(10px,1.5vw,24px)}
+.case-client{position:static;font-style:italic;opacity:.7;font-size:clamp(16px,2vw,30px);line-height:1;letter-spacing:normal;font-weight:400;white-space:nowrap}
+.case-hero-bottom{display:grid;grid-template-columns:1.2fr 1fr;gap:8vw;align-items:end;border-top:1px solid currentColor;padding-top:18px}
+.case-hero-bottom p{font-size:clamp(18px,2vw,28px);line-height:1.12;letter-spacing:-.025em;margin:0}
+.case-fields{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.case-fields span{border:1px solid #f4bf32;padding:7px 10px;border-radius:999px}
+.case-visual{margin:0 var(--page-x,34px);min-height:75vh;border:1px solid currentColor;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+.placeholder-visual>span{font-size:10px;letter-spacing:.1em}
+.fake-spread{display:grid;grid-template-columns:1.2fr 1fr;min-height:58vh;border-top:1px solid currentColor}
+.fake-spread>div{padding:25px;font-size:clamp(35px,7vw,110px);line-height:.85;font-weight:700}
+.fake-spread>div+div{border-left:1px solid currentColor;font-size:clamp(18px,2.3vw,38px);line-height:1.2;font-weight:400;display:flex;align-items:flex-end}
+.case-overview{padding:120px var(--page-x,34px)}
+.section-cap{border-top:1px solid currentColor;padding-top:12px;margin-bottom:55px}
+.overview-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:7vw}
+.overview-grid h2,.selected-editions h2,.case-impact h2{font-size:clamp(44px,6vw,94px);line-height:.88;letter-spacing:-.055em;margin:0}
+.overview-copy p{font-size:18px;line-height:1.4;margin:0 0 18px}
+.project-meta{grid-column:2;display:grid;grid-template-columns:1fr 1fr;margin-top:35px}
+.project-meta div{border-top:1px solid currentColor;padding:10px 0 22px}.project-meta dt{font-size:9px;letter-spacing:.1em}.project-meta dd{margin:5px 0 0;font-size:14px}
+.horizontal-story{height:360vh;position:relative}
+.horizontal-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--cream,#f3eddf)}
+.horizontal-track{height:100%;display:flex;will-change:transform}
+.story-panel{width:100vw;min-width:100vw;height:100vh;padding:42px var(--page-x,34px) 80px;position:relative;overflow:hidden}
+.panel-number{font-size:11px;letter-spacing:.08em;display:block;border-top:1px solid currentColor;padding-top:11px}
+.problem h2,.strategy h2{font-size:clamp(62px,9vw,145px);line-height:.79;letter-spacing:-.065em;margin:5vh 0 0}
+.problem h2 em{font-weight:400}.problem>p{position:absolute;right:5vw;bottom:12vh;width:min(440px,35vw);font-size:17px;line-height:1.35}
+.noise span{position:absolute;font-size:clamp(13px,2vw,32px);opacity:.22;font-weight:700}.noise span:nth-child(1){top:25%;right:20%}.noise span:nth-child(2){top:42%;right:8%}.noise span:nth-child(3){bottom:15%;left:10%}.noise span:nth-child(4){top:20%;left:48%}.noise span:nth-child(5){bottom:24%;left:45%}.noise span:nth-child(6){top:57%;left:28%}
+.system-head{display:flex;justify-content:space-between;align-items:end;margin:5vh 0}.system-head h2{font-size:clamp(55px,8vw,125px);line-height:.82;letter-spacing:-.06em;margin:0}.system-head p{max-width:340px;font-size:16px}
+.issue-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid currentColor;border-left:1px solid currentColor}
+.issue-grid div{height:19vh;border-right:1px solid currentColor;border-bottom:1px solid currentColor;padding:12px;display:flex;flex-direction:column;justify-content:space-between}.issue-grid b{font-size:10px}.issue-grid span{font-size:clamp(16px,2vw,30px);font-weight:700}
+.strategy-flow{display:flex;align-items:stretch;margin-top:8vh}.strategy-flow div{flex:1;border-top:1px solid currentColor;border-bottom:1px solid currentColor;padding:14px;min-height:210px;display:flex;flex-direction:column}.strategy-flow small{margin-bottom:auto}.strategy-flow strong{font-size:clamp(18px,2vw,30px)}.strategy-flow p{font-size:13px;max-width:190px}.strategy-flow i{align-self:center;padding:0 12px;font-size:28px;font-style:normal}
+.story-progress{position:absolute;bottom:24px;left:34px;right:34px;display:flex;align-items:center;gap:10px;font-size:9px}.story-progress div{height:1px;background:rgba(18,52,95,.2);flex:1;overflow:hidden}.story-progress i{display:block;width:0;height:100%;background:#f4bf32}
+.selected-editions{padding:120px var(--page-x,34px)}
+.edition-grid{display:grid;grid-template-columns:1.2fr .8fr 1fr;grid-auto-rows:270px;margin-top:70px;gap:10px}.edition{border:1px solid currentColor;padding:14px;font-size:11px;display:flex;flex-direction:column;justify-content:space-between}.edition small{font-size:18px;font-weight:700}.e1{grid-row:span 2}.e4{grid-column:span 2}
+.case-impact{padding:120px var(--page-x,34px)}.case-impact>div:last-child{display:grid;grid-template-columns:1.2fr .8fr;gap:8vw}.case-impact p{font-size:18px;line-height:1.4;align-self:end}
+.case-reflection{margin:0 var(--page-x,34px);padding:90px 0;border-top:1px solid currentColor}.case-reflection span{font-size:10px}.case-reflection h2{font-size:clamp(36px,5vw,75px);line-height:.95;max-width:1100px}
+.next-project{display:block;color:inherit;text-decoration:none;padding:35px var(--page-x,34px) 80px;border-top:1px solid currentColor}.next-project span{font-size:10px}.next-project strong{display:block;width:fit-content;max-width:100%;font-size:clamp(60px,10vw,160px);line-height:.8;letter-spacing:-.065em;margin-top:55px;transform-origin:left center;transition:transform .24s cubic-bezier(.22,.7,.22,1)}.next-project strong:hover,.next-project:focus-visible strong{transform:scale(1.06)}
+@media(max-width:750px){.case-hero-bottom,.overview-grid,.case-impact>div:last-child{grid-template-columns:1fr}.case-fields{justify-content:flex-start}.project-meta{grid-column:1}.case-title h1{font-size:20vw}.case-brief-line{gap:8px}.case-client{font-size:14px}.story-panel{padding-left:18px;padding-right:18px}.problem>p{position:relative;right:auto;bottom:auto;width:auto;margin-top:40px}.issue-grid{grid-template-columns:1fr 1fr}.strategy-flow{overflow:auto}.strategy-flow div{min-width:180px}.edition-grid{grid-template-columns:1fr 1fr}.e1{grid-row:auto}.e4{grid-column:auto}}
+
+.meter-index{border-top:1px solid currentColor;border-bottom:1px solid currentColor;padding:26px 0 48px;overflow:hidden}
+.meter-scroll{overflow-x:auto;scrollbar-width:none;position:relative;cursor:grab}.meter-scroll::-webkit-scrollbar{display:none}
+.meter-scale{display:flex;align-items:flex-start;width:max-content;padding:0 48vw}
+.meter-stop{width:190px;flex:0 0 190px;color:inherit;text-decoration:none;display:grid;grid-template-columns:30px 1fr;grid-template-rows:72px auto}
+.meter-stop>i{grid-column:1/-1;width:5px;height:68px;background:currentColor}
+.meter-stop span{font-size:10px;padding-top:10px;opacity:.7}.meter-stop b{font-size:18px;padding-top:9px;white-space:nowrap}
+.meter-minor{width:115px;flex:0 0 115px;height:72px;display:flex;justify-content:space-between}
+.meter-minor i{width:1px;height:29px;background:currentColor}.meter-minor i:nth-child(3){height:43px}
+.meter-marker{position:sticky;left:50%;display:block;width:3px;height:82px;background:#f4bf32;margin-top:-116px;transform:translateX(-50%);pointer-events:none}
+.meter-stop:hover b{font-weight:700}
+
+/* V7.2 — horizontal version of the Home rail.
+   Bottom edges of every tick share one baseline; the whole rail is ~1/3 viewport high. */
+.meter-index{display:none!important}
+.film-index{
+  position:relative;
+  height:420vh;
+}
+.film-sticky{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden;
+  background:var(--cream,#f3eddf);
+}
+.film-track{
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:36vh;
+  min-height:260px;
+  width:max-content;
+  display:flex;
+  align-items:flex-end;
+  padding:0 42vw 0 8vw;
+  will-change:transform;
+}
+.film-chapter{
+  width:260px;
+  flex:0 0 260px;
+  height:100%;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+}
+.chapter-tick{
+  display:block;
+  width:12px;
+  height:100%;
+  background:#f4bf32;
+  flex:0 0 12px;
+}
+.chapter-copy{
+  position:absolute;
+  left:22px;
+  bottom:calc(100% - 62px);
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  white-space:nowrap;
+  color:#f4bf32;
+}
+.chapter-copy span{font-size:11px;font-weight:400}
+.chapter-copy strong{font-size:clamp(20px,2vw,31px);line-height:1;font-weight:700}
+.film-minors{
+  width:330px;
+  flex:0 0 330px;
+  height:100%;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+}
+.film-minors i{
+  display:block;
+  width:5px;
+  height:68%;
+  background:currentColor;
+}
+.film-minors i:nth-child(2),
+.film-minors i:nth-child(5){height:76%}
+.film-minors i:nth-child(3){height:86%}
+.film-minors i:nth-child(4){height:72%}
+
+/* The baseline is literally the viewport bottom. */
+.film-track:after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:1px;
+  background:currentColor;
+}
+@media(max-width:750px){
+  .film-track{height:34vh;min-height:210px}
+  .film-chapter{width:200px;flex-basis:200px}
+  .film-minors{width:230px;flex-basis:230px}
+}
+
+/* V7.3 — synchronized editorial surface + Home-style horizontal rail */
+.film-index{display:none!important}
+.story-index{height:620vh;position:relative}
+.story-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--cream,#f3eddf)}
+.story-content-track{position:absolute;inset:0 0 34vh 0;display:flex;will-change:transform}
+.story-content{width:100vw;min-width:100vw;padding:5vh var(--page-x,34px) 2vh;display:flex;flex-direction:column;justify-content:center}
+.story-eyebrow{position:absolute;top:4vh;font-size:10px;letter-spacing:.09em}
+.story-content h2{font-size:clamp(50px,7vw,112px);line-height:.84;letter-spacing:-.06em;margin:0 0 3vh}
+.story-content>p{max-width:720px;font-size:18px;line-height:1.35}
+.story-intro-line{font-size:clamp(35px,5.4vw,82px)!important;line-height:.98!important;letter-spacing:-.045em;max-width:1150px!important;margin:0}
+.overview-content{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:auto 1fr auto;align-items:end;column-gap:7vw}
+.overview-content .story-eyebrow{grid-column:1/-1}
+.overview-content h2{grid-column:1;align-self:center}
+.overview-content>p{grid-column:2;align-self:center}
+.story-meta{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid currentColor;padding-top:10px;font-size:10px;letter-spacing:.06em}
+.challenge-grid{display:grid;grid-template-columns:1fr 1fr;gap:8vw;margin-top:2vh}
+.challenge-grid>div{display:flex;flex-direction:column}.challenge-grid b{font-size:11px;margin-bottom:13px}.challenge-grid span{border-top:1px solid currentColor;padding:8px 0;font-size:14px}
+.system-map{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:2vw;margin-top:2vh}.system-map>i{font-style:normal;font-size:30px}.system-map>strong{font-size:clamp(24px,3vw,48px);line-height:.9;text-align:center}.inputs,.outputs{display:flex;flex-direction:column}.inputs span,.outputs span{border-top:1px solid currentColor;padding:7px 0;font-size:12px}
+.strategy-example{display:flex;align-items:stretch;border-top:1px solid currentColor;border-bottom:1px solid currentColor;margin-top:3vh}.strategy-example span{padding:18px 12px;min-width:150px;font-size:12px;display:flex;flex-direction:column;gap:28px}.strategy-example b{font-size:9px;font-weight:400}.strategy-example i{align-self:center;font-style:normal}
+.story-rail{position:absolute;left:0;right:0;bottom:0;height:34vh;overflow:hidden}
+.story-rail-track{height:100%;width:max-content;display:flex;align-items:flex-end;padding:0 34vw 0 7vw;will-change:transform}
+.story-mark{width:230px;flex:0 0 230px;height:100%;position:relative;display:flex;align-items:flex-end}
+.story-mark>i{height:100%;width:10px;background:#f4bf32;display:block}
+.story-mark>div{position:absolute;left:20px;bottom:18px;display:flex;gap:9px;align-items:baseline;white-space:nowrap;color:#f4bf32}.story-mark span{font-size:10px}.story-mark strong{font-size:19px}
+.story-minors{width:300px;flex:0 0 300px;height:100%;display:flex;justify-content:space-between;align-items:flex-end}
+.story-minors i{display:block;width:4px;height:61%;background:currentColor}.story-minors i:nth-child(2),.story-minors i:nth-child(6){height:68%}.story-minors i:nth-child(3),.story-minors i:nth-child(5){height:75%}.story-minors i:nth-child(4){height:84%}
+@media(max-width:750px){.story-content-track{bottom:31vh}.story-rail{height:31vh}.overview-content{display:flex}.challenge-grid{grid-template-columns:1fr}.story-mark{width:180px;flex-basis:180px}.story-minors{width:220px;flex-basis:220px}.story-content h2{font-size:12vw}.strategy-example{overflow:hidden}}
+
+/* V7.4 — continuous floating rail, matching the hierarchy of visual reference 2 */
+.story-rail{
+  height:34vh;
+  bottom:0;
+  overflow:hidden;
+  padding-bottom:4.8vh; /* white breathing room under the scale */
+  box-sizing:border-box;
+}
+.continuous-story-rail{
+  height:100%;
+  align-items:flex-start;
+  padding:0 18vw;
+  gap:0;
+  bottom:auto;
+}
+.rail-cell{
+  position:relative;
+  height:100%;
+  flex:0 0 38px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.rail-cell>i{
+  display:block;
+  width:3px;
+  background:var(--navy,#12345f);
+}
+.rail-minor>i{
+  min-height:34%;
+}
+.rail-major{
+  flex-basis:54px;
+  justify-content:flex-start;
+}
+.rail-major>i{
+  width:8px;
+  height:76%;
+  background:#f4bf32;
+}
+.rail-label{
+  position:absolute;
+  left:0;
+  top:calc(76% + 11px);
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  white-space:nowrap;
+  color:var(--navy,#12345f);
+}
+.rail-label strong{
+  font-size:18px;
+  line-height:1;
+  font-weight:700;
+}
+.rail-label span{
+  font-size:15px;
+  line-height:1;
+  font-weight:700;
+}
+/* Give labels room without creating gaps in the tick sequence itself. */
+.rail-major + .rail-minor{margin-left:92px}
+@media(max-width:750px){
+ .story-rail{height:32vh;padding-bottom:4vh}
+ .rail-cell{flex-basis:28px}
+ .rail-major{flex-basis:42px}
+ .rail-major + .rail-minor{margin-left:70px}
+ .rail-label strong{font-size:15px}.rail-label span{font-size:13px}
+}
+
+/* V7.5 — fixed yellow reader head over one uninterrupted navy tick stream */
+.continuous-story-rail{display:none!important}
+.reader-rail{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:34vh;
+  padding-bottom:5vh;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+.reader-track{
+  position:absolute;
+  left:0;
+  bottom:5vh;
+  height:25vh;
+  display:flex;
+  align-items:flex-end;
+  gap:0;
+  width:max-content;
+  padding-left:50vw;
+  padding-right:50vw;
+  will-change:transform;
+}
+.reader-tick{
+  display:block;
+  width:3px;
+  height:61%;
+  margin:0 8px; /* regular cadence, no chapter gaps */
+  flex:0 0 3px;
+  background:var(--navy,#12345f);
+}
+.reader-tick:nth-child(4n+2){height:67%}
+.reader-tick:nth-child(4n+3){height:73%}
+.reader-tick:nth-child(4n){height:64%}
+.reader-tick.chapter-marker{
+  width:5px;
+  flex-basis:5px;
+  height:91%;
+  margin-left:8px;
+  margin-right:8px;
+  background:var(--navy,#12345f);
+}
+.reader-head{
+  position:absolute;
+  left:50%;
+  bottom:5vh;
+  width:8px;
+  height:27vh;
+  transform:translateX(-50%);
+  z-index:5;
+  pointer-events:none;
+}
+.reader-head>i{
+  position:absolute;
+  left:0;bottom:0;
+  width:8px;height:100%;
+  display:block;
+  background:#f4bf32;
+  opacity:.92;
+}
+.reader-label{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 12px);
+  transform:translateX(-50%);
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  white-space:nowrap;
+  color:var(--navy,#12345f);
+  transition:opacity .18s ease, transform .25s ease;
+}
+.reader-label span{font-size:11px;font-weight:400}
+.reader-label strong{font-size:20px;line-height:1;font-weight:700}
+.reader-label.is-changing{opacity:0;transform:translate(-50%,5px)}
+@media(max-width:750px){
+ .reader-rail{height:31vh;padding-bottom:4vh}
+ .reader-track{height:22vh;bottom:4vh}
+ .reader-head{height:24vh;bottom:4vh}
+ .reader-tick{margin-left:6px;margin-right:6px}
+}
+
+/* V7.6 — rail proportions + content clearance */
+.story-content-track{
+  /* Keep the chapter content completely above the instrument. */
+  bottom:30vh;
+}
+.story-content{
+  padding-top:4vh;
+  padding-bottom:4vh;
+  justify-content:center;
+  overflow:visible;
+}
+.story-content h2{
+  font-size:clamp(44px,6.2vw,96px);
+}
+.problem-content .challenge-grid{
+  margin-top:1.5vh;
+}
+.reader-rail{
+  height:30vh;
+  padding-bottom:4vh;
+}
+.reader-track{
+  height:18vh;
+  bottom:4vh;
+}
+.reader-tick{
+  width:3px;
+  flex-basis:3px;
+  height:40%;
+  margin-left:14px;
+  margin-right:14px;
+}
+.reader-tick:nth-child(4n+2){height:45%}
+.reader-tick:nth-child(4n+3){height:50%}
+.reader-tick:nth-child(4n){height:43%}
+.reader-tick.chapter-marker{
+  width:5px;
+  flex-basis:5px;
+  height:67%;
+  margin-left:14px;
+  margin-right:14px;
+}
+.reader-head{
+  height:22vh;
+  bottom:4vh;
+}
+.reader-head>i{
+  width:8px;
+  height:100%;
+}
+.reader-label{
+  bottom:calc(100% + 10px);
+}
+@media(max-width:750px){
+ .story-content-track{bottom:28vh}
+ .reader-rail{height:28vh;padding-bottom:3vh}
+ .reader-track{height:16vh;bottom:3vh}
+ .reader-head{height:20vh;bottom:3vh}
+ .reader-tick{margin-left:10px;margin-right:10px}
+}
+
+/* V7.7 — reader rail refinement */
+.reader-tick{
+  margin-left:18px;
+  margin-right:18px;
+  opacity:.66;
+}
+.reader-tick.chapter-marker{
+  margin-left:18px;
+  margin-right:18px;
+  opacity:.70;
+}
+.reader-head>i{
+  opacity:1;
+}
+.reader-label{
+  color:#f4bf32;
+  gap:10px;
+}
+.reader-label span{
+  font-size:13px;
+  font-weight:700;
+}
+.reader-label strong{
+  font-size:24px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:-.015em;
+}
+@media(max-width:750px){
+  .reader-tick{margin-left:13px;margin-right:13px}
+  .reader-tick.chapter-marker{margin-left:13px;margin-right:13px}
+  .reader-label span{font-size:12px}
+  .reader-label strong{font-size:21px}
+}
+
+/* V7.8 — 01 INTRO */
+.intro-content{
+  justify-content:center;
+}
+.intro-layout{
+  width:100%;
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+  gap:8vw;
+  align-items:end;
+  padding-top:3vh;
+}
+.intro-heading h2{
+  margin:0;
+  font-size:clamp(48px,6.4vw,102px);
+  line-height:.86;
+  letter-spacing:-.058em;
+  font-weight:700;
+}
+.intro-copy{
+  padding-bottom:.6vh;
+  max-width:500px;
+}
+.intro-copy p{
+  margin:0 0 18px;
+  font-size:clamp(15px,1.3vw,19px);
+  line-height:1.38;
+}
+.intro-copy p:last-child{
+  margin-bottom:0;
+  opacity:.72;
+}
+@media(max-width:750px){
+ .intro-layout{grid-template-columns:1fr;gap:4vh;align-items:start}
+ .intro-heading h2{font-size:12vw}
+ .intro-copy{max-width:100%}
+}
+
+/* V8.2 — keep chapter label permanently visible */
+.reader-label,
+.reader-label.is-changing{
+  opacity:1 !important;
+  transform:translateX(-50%) !important;
+  transition:none !important;
+}
+
+/* V8.3 — mirrored rail at top + content and rail share one horizontal motion */
+.story-sticky{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* Rail now hangs from the upper margin. */
+.reader-rail{
+  top:0 !important;
+  bottom:auto !important;
+  height:29vh;
+  padding-top:4vh;
+  padding-bottom:0;
+}
+.reader-track{
+  top:4vh !important;
+  bottom:auto !important;
+  height:18vh;
+  align-items:flex-start;
+}
+.reader-tick{
+  align-self:flex-start;
+  height:40%;
+}
+.reader-tick:nth-child(4n+2){height:45%}
+.reader-tick:nth-child(4n+3){height:50%}
+.reader-tick:nth-child(4n){height:43%}
+.reader-tick.chapter-marker{
+  height:67%;
+}
+
+/* Fixed yellow reading head, mirrored vertically. */
+.reader-head{
+  top:4vh !important;
+  bottom:auto !important;
+  height:22vh;
+}
+.reader-head>i{
+  top:0;
+  bottom:auto;
+  height:100%;
+}
+.reader-label{
+  top:calc(100% + 10px) !important;
+  bottom:auto !important;
+  color:#f4bf32;
+}
+
+/* Content lives below the instrument and travels on the same horizontal axis. */
+.story-content-track{
+  top:30vh !important;
+  bottom:0 !important;
+  height:70vh;
+  align-items:stretch;
+}
+.story-content{
+  height:70vh;
+  padding-top:4vh;
+  padding-bottom:5vh;
+}
+@media(max-width:750px){
+  .reader-rail{height:27vh;padding-top:3vh}
+  .reader-track{top:3vh!important;height:16vh}
+  .reader-head{top:3vh!important;height:20vh}
+  .story-content-track{top:28vh!important;height:72vh}
+  .story-content{height:72vh}
+}
+
+/* V8.4 — chapter label clearance + no clipping */
+.reader-rail{
+  height:31vh;
+  overflow:visible;
+}
+.reader-head{
+  height:19vh;
+}
+.reader-label{
+  top:calc(100% + 14px) !important;
+  bottom:auto !important;
+  z-index:20;
+  padding:3px 8px 5px;
+  background:var(--cream,#f3eddf);
+}
+.story-content-track{
+  top:32vh !important;
+  height:68vh;
+}
+.story-content{
+  height:68vh;
+}
+/* Old narrative sections are intentionally disabled in this prototype:
+   01–05 exist only once, inside .story-content-track. */
+.case-overview,
+.horizontal-story,
+.selected-editions,
+.case-impact,
+.case-reflection{
+  display:none !important;
+}
+@media(max-width:750px){
+ .reader-rail{height:30vh}
+ .reader-head{height:18vh}
+ .story-content-track{top:31vh!important;height:69vh}
+ .story-content{height:69vh}
+}
+
+/* V8.5 — unify background + increase rail/content spacing + fix 02 hierarchy */
+
+/* The sticky narrative must inherit the exact same background as the page/hero. */
+.story-index,
+.story-sticky,
+.reader-rail,
+.story-content-track,
+.story-content,
+.reader-label{
+  background:inherit !important;
+}
+.story-sticky{
+  background-color:transparent !important;
+}
+
+/* More breathing room between the hanging rail and the editorial content. */
+.reader-rail{
+  height:30vh;
+}
+.reader-head{
+  height:18vh;
+}
+.reader-label{
+  top:calc(100% + 12px) !important;
+  padding:0 !important;
+}
+
+/* Content begins lower, creating a deliberate empty band below the rail. */
+.story-content-track{
+  top:36vh !important;
+  height:64vh;
+}
+.story-content{
+  height:64vh;
+  padding-top:5vh;
+  padding-bottom:4vh;
+}
+
+/* Eyebrow is part of the panel flow instead of floating over its title. */
+.story-eyebrow{
+  position:static !important;
+  display:block;
+  margin-bottom:3.2vh;
+  flex:0 0 auto;
+}
+
+/* 02 / OVERVIEW specifically: preserve grid hierarchy without overlap. */
+.overview-content{
+  grid-template-rows:auto 1fr auto !important;
+  align-content:stretch;
+}
+.overview-content .story-eyebrow{
+  grid-column:1 / -1;
+  grid-row:1;
+  align-self:start;
+  margin-bottom:2.5vh;
+}
+.overview-content h2{
+  grid-column:1;
+  grid-row:2;
+  align-self:center;
+  margin-top:0 !important;
+}
+.overview-content > p{
+  grid-column:2;
+  grid-row:2;
+  align-self:center;
+}
+.overview-content .story-meta{
+  grid-column:1 / -1;
+  grid-row:3;
+}
+
+@media(max-width:750px){
+  .story-content-track{top:35vh!important;height:65vh}
+  .story-content{height:65vh}
+  .story-eyebrow{margin-bottom:2.5vh}
+}
+
+/* V8.6 — uniform ticks with progressive magnification around the yellow reader */
+.reader-tick,
+.reader-tick:nth-child(4n+2),
+.reader-tick:nth-child(4n+3),
+.reader-tick:nth-child(4n){
+  height:38% !important;
+  transition:height .16s linear, opacity .16s linear;
+  transform-origin:top center;
+}
+.reader-tick.chapter-marker{
+  height:48% !important; /* chapter interruption remains subtly longer */
+}
+.reader-tick.proximity-1{height:46% !important}
+.reader-tick.proximity-2{height:55% !important}
+.reader-tick.proximity-3{height:65% !important}
+.reader-tick.chapter-marker.proximity-1{height:53% !important}
+.reader-tick.chapter-marker.proximity-2{height:61% !important}
+.reader-tick.chapter-marker.proximity-3{height:70% !important}
+/* Yellow reader remains clearly dominant. */
+.reader-head{height:18vh !important}
+.reader-head>i{height:100% !important}
+
+/* V8.7 — denser, finer rail + tighter magnetic field */
+.reader-tick,
+.reader-tick:nth-child(4n+2),
+.reader-tick:nth-child(4n+3),
+.reader-tick:nth-child(4n){
+  width:2px !important;
+  flex-basis:2px !important;
+  height:29% !important;
+  margin-left:11px !important;
+  margin-right:11px !important;
+  transition:height .24s cubic-bezier(.22,.61,.36,1), opacity .24s ease !important;
+}
+.reader-tick.chapter-marker{
+  width:3px !important;
+  flex-basis:3px !important;
+  height:38% !important;
+  margin-left:11px !important;
+  margin-right:11px !important;
+}
+/* tighter field: fewer ticks are affected */
+.reader-tick.proximity-1{height:34% !important}
+.reader-tick.proximity-2{height:41% !important}
+.reader-tick.proximity-3{height:49% !important}
+.reader-tick.chapter-marker.proximity-1{height:41% !important}
+.reader-tick.chapter-marker.proximity-2{height:46% !important}
+.reader-tick.chapter-marker.proximity-3{height:53% !important}
+
+/* More vertical travel for a calmer horizontal progression. */
+.story-index{height:760vh !important}
+
+/* V8.8 — paragraph labels travel with dedicated navy ticks */
+.rail-submark{
+  position:relative;
+  display:block;
+  width:24px;
+  flex:0 0 24px;
+  height:100%;
+  margin:0;
+}
+.rail-submark>.reader-tick{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  margin:0 !important;
+}
+.rail-submark small{
+  position:absolute;
+  top:34%;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:8px;
+  line-height:1;
+  font-weight:500;
+  letter-spacing:.055em;
+  white-space:nowrap;
+  color:var(--navy,#12345f);
+  opacity:.62;
+  pointer-events:none;
+}
+/* Paragraph ticks stay secondary to chapter markers. */
+.rail-submark>.reader-tick.proximity-1 + small,
+.rail-submark>.reader-tick.proximity-2 + small,
+.rail-submark>.reader-tick.proximity-3 + small{
+  opacity:.82;
+}
+
+/* V8.9 — ONLY real section names travel with the long navy chapter ticks */
+.rail-submark{display:contents!important}
+.chapter-rail-mark{
+  position:relative;
+  display:block;
+  width:25px;
+  flex:0 0 25px;
+  height:100%;
+}
+.chapter-rail-mark>.chapter-marker{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  margin:0 !important;
+}
+.chapter-rail-mark>small{
+  position:absolute;
+  top:42%;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--navy,#12345f);
+  opacity:.68;
+  font-size:8px;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.045em;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+/* V9.0 — every named section belongs to its own long navy tick */
+.chapter-rail-mark>.chapter-marker{
+  height:38% !important;
+  width:3px !important;
+  flex-basis:3px !important;
+}
+.chapter-rail-mark>small{
+  top:43%;
+  color:var(--navy,#12345f);
+  opacity:.68;
+}
+
+/* V9.1 cleanup: no blue travelling section names.
+   Only the fixed yellow reader names the active section. */
+.chapter-rail-mark,
+.rail-submark{display:contents!important}
+.chapter-rail-mark>small,
+.rail-submark>small{display:none!important}
+
+/* Keep all long navy chapter markers secondary to yellow. */
+.reader-tick.chapter-marker{
+  height:38% !important;
+  width:3px !important;
+  flex-basis:3px !important;
+}
+
+/* Ensure the fixed label is clean and fully visible. */
+.reader-label{
+  color:#f4bf32 !important;
+  opacity:1 !important;
+  z-index:30;
+  background:transparent !important;
+}
+
+/* V9.2 — pre-roll: ordinary navy ticks extend from the left margin to 01.
+   Chapter order/markers remain untouched. */
+.pre-roll-tick{
+  height:29% !important;
+  width:2px !important;
+  flex-basis:2px !important;
+  margin-left:11px !important;
+  margin-right:11px !important;
+}
+
+/* V9.3 — visually fill every pixel from viewport left edge to 01,
+   without touching the chapter geometry/synchronisation. */
+.reader-rail::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:4vh;
+  width:50vw;
+  height:18vh;
+  pointer-events:none;
+  z-index:0;
+  background:
+    repeating-linear-gradient(
+      to right,
+      var(--navy,#12345f) 0,
+      var(--navy,#12345f) 2px,
+      transparent 2px,
+      transparent 24px
+    );
+  opacity:.66;
+  clip-path:polygon(0 0,100% 0,100% 29%,0 29%);
+}
+.reader-track{z-index:1}
+.reader-head{z-index:5}
+
+/* V9.4 — remove the duplicated visual tick layer from V9.3.
+   Only the real moving tape remains. */
+.reader-rail::before{
+  content:none !important;
+  display:none !important;
+}
+
+/* V9.6 — the first long navy marker starts physically behind the yellow reader.
+   Yellow sits above it and fully masks it; the marker emerges only once the tape moves left. */
+.reader-head{
+  z-index:50 !important;
+}
+.reader-head>i{
+  position:absolute;
+  z-index:3 !important;
+  width:9px !important; /* slightly wider than the 3px navy chapter marker */
+  opacity:1 !important;
+}
+.reader-track{
+  z-index:1 !important;
+}
+
+/* V9.7 — pre-roll is visually neutral.
+   01 is the only long navy tick at the reader origin and is masked by yellow. */
+.pre-roll-tick,
+.pre-roll-tick.proximity-1,
+.pre-roll-tick.proximity-2,
+.pre-roll-tick.proximity-3{
+  height:29% !important;
+  width:2px !important;
+  flex-basis:2px !important;
+}
+.reader-head>i{
+  width:9px !important;
+  z-index:10 !important;
+}
+
+/* V10.3 — literal HOME rail appearance, rotated 90°.
+   Neutralize every older project-specific tick treatment. */
+.reader-track .reader-tick,
+.reader-track .reader-tick:nth-child(4n+2),
+.reader-track .reader-tick:nth-child(4n+3),
+.reader-track .reader-tick:nth-child(4n),
+.reader-track .reader-tick.chapter-marker,
+.reader-track .pre-roll-tick,
+.reader-track .reader-tick.proximity-1,
+.reader-track .reader-tick.proximity-2,
+.reader-track .reader-tick.proximity-3{
+  box-sizing:border-box !important;
+  width:1px;
+  flex:0 0 1px;
+  height:13px;
+  margin-left:13px !important;
+  margin-right:13px !important;
+  background:rgba(23,59,99,.35) !important;
+  opacity:1 !important;
+  transform-origin:top center !important;
+  transition:height .10s linear, width .10s linear, background .10s linear, opacity .10s linear !important;
+}
+
+/* Chapter ticks retain their role through timing/position, not a conflicting
+   static visual style. JS still knows exactly which ticks are 01–08. */
+.reader-track .reader-tick.chapter-marker{
+  height:13px;
+}
+
+/* Keep yellow reader visually dominant and fixed. */
+.reader-head{z-index:50 !important}
+.reader-head>i{z-index:10 !important}
+
+/* V10.4 — HOME rail source of truth.
+   Exact rest language: 27px rhythm, 13px segment, 1px thickness,
+   rgba(23,59,99,.35), .10s linear response.
+   Chapter ticks are the only intentional exception: 18px at rest. */
+.reader-track{
+  gap:0 !important;
+}
+.reader-track .reader-tick,
+.reader-track .reader-tick:nth-child(4n+2),
+.reader-track .reader-tick:nth-child(4n+3),
+.reader-track .reader-tick:nth-child(4n),
+.reader-track .pre-roll-tick{
+  box-sizing:border-box !important;
+  width:1px !important;
+  flex:0 0 1px !important;
+  height:13px !important;
+  margin-left:13px !important;
+  margin-right:13px !important;
+  background:rgba(23,59,99,.35) !important;
+  opacity:1 !important;
+  transform-origin:top center !important;
+  transition:
+    height .10s linear,
+    width .10s linear,
+    background .10s linear,
+    opacity .10s linear !important;
+}
+.reader-track .reader-tick.chapter-marker{
+  height:18px !important;
+}
+/* Disable legacy class-based magnetism completely. */
+.reader-track .proximity-1,
+.reader-track .proximity-2,
+.reader-track .proximity-3{
+  transition:
+    height .10s linear,
+    width .10s linear,
+    background .10s linear,
+    opacity .10s linear !important;
+}
+
+/* V10.5 — restore section hierarchy on top of the Home-wave system.
+   Ordinary ticks = Home.
+   Section ticks = longer + darker navy, one per 01–08. */
+.reader-track .reader-tick.chapter-marker{
+  height:24px !important;
+  width:1.5px !important;
+  flex-basis:1.5px !important;
+  background:rgba(23,59,99,.82) !important;
+  opacity:1 !important;
+}
+
+/* V10.8 — labels are paint-only: zero effect on rail flex geometry. */
+.reader-track{position:relative}
+.chapter-floating-label{
+  position:absolute;
+  top:34px;
+  left:0;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:8px;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.055em;
+  color:rgba(23,59,99,.82);
+  opacity:.72;
+  pointer-events:none;
+  z-index:4;
+  transition:color .10s linear, opacity .10s linear;
+}
+
+/* V10.9 — section labels are slightly larger and disappear inside the yellow wave.
+   They reveal only after their own long marker exits the influence area. */
+.chapter-floating-label{
+  font-size:10px !important;
+  font-weight:600;
+  opacity:.76;
+  transition:opacity .14s ease, color .10s linear !important;
+}
+.chapter-floating-label.is-in-wave{
+  opacity:0 !important;
+}
+
+/* V10.10 — larger editorial section labels + softer disappearance */
+.chapter-floating-label{
+  width:150px;
+  font-size:18px !important;
+  line-height:1.02 !important;
+  font-weight:600;
+  letter-spacing:-.025em !important;
+  white-space:normal !important;
+  text-align:center;
+  opacity:.76;
+  /* Longer fade with gentle easing: no abrupt pop at wave boundary. */
+  transition:
+    opacity .42s cubic-bezier(.22,.61,.36,1),
+    transform .42s cubic-bezier(.22,.61,.36,1) !important;
+}
+.chapter-floating-label.is-in-wave{
+  opacity:0 !important;
+  transform:translateX(-50%) translateY(-3px);
+}

@@ -1,0 +1,1536 @@
+*{box-sizing:border-box}
+:root{
+  --paper:#f4f2ea;
+  --ink:#173b63;
+  --muted:rgba(23,59,99,.58);
+  --yellow:#FFB800;
+  --margin:clamp(24px,4.45vw,64px);
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Atkinson Hyperlegible",Arial,sans-serif;
+  cursor:none;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+.site-header{
+  position:relative;display:flex;justify-content:space-between;align-items:center;
+  padding:28px var(--margin);font-size:14px;letter-spacing:.04em;
+}
+.site-header nav{display:flex;gap:28px}
+.site-header nav a{opacity:.48}.site-header nav a:hover{opacity:1}
+.nav-active{font-weight:700}
+.hero{
+  min-height:calc(100vh - 74px);padding:5vh var(--margin) 8vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(88px,7.5vw,112px);
+}
+.hero h1{margin:0;font-size:clamp(86px,13.5vw,210px);line-height:.78;letter-spacing:-.065em;font-weight:700}
+.hero h1 span{display:block}
+.intro{width:min(680px,58vw);margin-left:1px}
+.intro p{font-size:clamp(18px,1.55vw,25px);line-height:1.25;margin:0}
+.intro a,.project-more a,.about a{font-weight:700;white-space:nowrap}
+.work{padding:80px var(--margin) 130px}
+.section-label,.eyebrow{font-size:13px;letter-spacing:.08em;margin-bottom:52px}
+.project-index{border-top:1px solid rgba(23,59,99,.22)}
+.project{
+  position:relative;padding:58px 0 58px 42px;border-bottom:0;
+  outline:none;overflow:hidden;
+}
+.rail{
+  position:absolute;left:0;top:0;bottom:0;width:40px;
+}
+.project-row{display:grid;grid-template-columns:68px minmax(0,1fr) auto;align-items:baseline;gap:16px}
+.number,.year,.tags{font-size:15px}
+.project h2{
+  margin:0;font-size:clamp(34px,4vw,61px);line-height:.95;letter-spacing:-.035em;font-weight:400;
+  transform-origin:left center;transition:transform .30s cubic-bezier(.2,.75,.25,1),font-weight .2s ease;
+}
+.year{color:var(--muted)}
+.tags{margin:10px 0 0 84px;color:var(--muted)}
+.project-more{
+  margin:0 0 0 84px;max-width:800px;max-height:0;opacity:0;overflow:hidden;transform:translateY(-10px);
+  transition:max-height .46s cubic-bezier(.22,.7,.22,1),opacity .34s ease .06s,transform .42s cubic-bezier(.22,.7,.22,1),margin .42s cubic-bezier(.22,.7,.22,1);
+}
+.project-more > a{
+  display:block;
+  width:max-content;
+  margin:12px 0 0 0;
+}
+.project-more p{font-size:18px;line-height:1.3;margin:0}
+.project-more a{font-size:14px;white-space:nowrap}
+.project:hover .rail:after,.project:focus-within .project:hover h2,.project:focus-within h2{transform:scale(1.12);font-weight:700}
+.project:hover .project-more,.project:focus-within .project-more{
+  max-height:110px;opacity:1;transform:none;margin-top:24px
+}
+.about{
+  margin:0 var(--margin);padding:120px 0 140px;border-top:1px solid rgba(23,59,99,.22);
+  display:grid;grid-template-columns:1fr 2fr;column-gap:7vw;
+}
+.about .eyebrow{grid-column:1}
+.about h2{grid-column:2;margin:0 0 32px;font-size:clamp(42px,5.5vw,84px);line-height:.95;letter-spacing:-.04em}
+.about>p:not(.eyebrow),.about>a{grid-column:2}
+.about>p:not(.eyebrow){max-width:720px;font-size:22px;line-height:1.3}
+.about>a{margin-top:28px;font-size:14px}
+footer{
+  padding:30px var(--margin);border-top:1px solid rgba(23,59,99,.22);
+  display:flex;justify-content:space-between;font-size:12px;letter-spacing:.06em
+}
+.cursor{
+  position:fixed;left:0;top:0;width:16px;height:16px;border-radius:50%;background:var(--yellow);
+  transform:translate(-50%,-50%);pointer-events:none;z-index:9999;
+  transition:width .18s ease,height .18s ease,opacity .2s ease;mix-blend-mode:multiply
+}
+.cursor.is-hover{width:38px;height:38px}
+@media (pointer:coarse){
+  body{cursor:auto}.cursor{display:none}
+}
+@media (max-width:760px){
+  .site-header{padding-top:20px}.site-header nav{gap:16px}.site-header nav a:first-child{display:none}
+  .hero{min-height:88vh;padding-top:8vh;gap:54px}
+  .hero h1{font-size:clamp(72px,23vw,118px);line-height:.8}
+  .intro{width:100%;margin-top:60px}.intro p{font-size:19px}
+  .work{padding-top:55px}
+  .project{padding:42px 0 42px 26px}
+  .project-row{grid-template-columns:44px 1fr;gap:8px}
+  .project h2{font-size:36px;grid-column:2}
+  .number{grid-column:1;grid-row:1}.year{grid-column:2;margin-top:8px}
+  .tags{margin-left:52px;font-size:14px}
+  .project-more{margin-left:52px;grid-template-columns:1fr;gap:20px}
+  .project:hover h2,.project:focus-within h2{transform:none}
+  .project-more{max-height:none;opacity:1;transform:none;margin-top:18px}
+  .about{grid-template-columns:1fr;padding:90px 0}
+  .about .eyebrow,.about h2,.about>p:not(.eyebrow),.about>a{grid-column:1}
+  .about h2{font-size:52px}
+  footer{gap:20px;align-items:flex-end}
+}
+
+@media (pointer:fine){
+  .project:not(:hover):focus-within   .project:not(:hover):focus-within h2{transform:none;font-weight:400}
+  .project:not(:hover):focus-within .project-more{max-height:0;opacity:0;transform:translateY(-10px);margin-top:0}
+}
+
+footer{justify-content:center;text-align:center}
+
+.rail-ticks{position:absolute;inset:0}
+.rail-tick{
+  position:absolute;
+  left:0;
+  width:13px;
+  height:1px;
+  background:rgba(23,59,99,.35);
+  transform:translateY(-50%);
+  transform-origin:left center;
+  transition:width .2s ease,background .2s ease,opacity .2s ease;
+}
+
+
+.rail-tick{
+  transition:width .10s linear, background .10s linear, opacity .10s linear;
+}
+
+/* V3.6 — one uninterrupted roll for the entire project index */
+.project-index{
+  position:relative;
+}
+.continuous-rail{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:40px;
+  pointer-events:none;
+  z-index:2;
+}
+.continuous-rail .rail-tick{
+  position:absolute;
+  left:0;
+  width:13px;
+  height:1px;
+  background:rgba(23,59,99,.35);
+  transform:translateY(-50%);
+  transform-origin:left center;
+  transition:width .10s linear, background .10s linear;
+}
+.project > .rail{display:none !important}
+
+.hero h1{
+  color:#102F50;
+}
+
+.project-row,
+.project .tags,
+.project-more{
+  transition:
+    transform .30s cubic-bezier(.22,.7,.22,1),
+    opacity .34s ease,
+    max-height .46s cubic-bezier(.22,.7,.22,1),
+    margin .42s cubic-bezier(.22,.7,.22,1);
+}
+
+.project:hover .project-row,
+.project:hover .tags,
+.project:hover .project-more{
+  transform:translateX(14px);
+}
+
+.project:hover h2{
+  font-weight:700;
+}
+
+/* Keep keyboard focus visually equivalent without interfering with mouse hover. */
+.project:focus-within h2{
+  font-weight:700;
+}
+
+@media (max-width:760px){
+  .project:hover .project-row,
+  .project:hover .tags,
+  .project:hover .project-more{
+    transform:none;
+  }
+}
+
+.project .project-more{
+  transform:translate(0,-10px);
+}
+.project:hover .project-more,
+.project:focus-within .project-more{
+  transform:translate(14px,0);
+}
+@media (pointer:fine){
+  .project:not(:hover):focus-within .project-more{
+    transform:translate(0,-10px);
+  }
+}
+@media (max-width:760px){
+  .project .project-more,
+  .project:hover .project-more,
+  .project:focus-within .project-more{
+    transform:none;
+  }
+}
+
+/* V4 — editorial masthead + Practice */
+.hero{
+  min-height:auto;
+  padding:clamp(70px,8vh,110px) var(--margin) 78px;
+  display:block;
+}
+.hero .masthead{
+  margin:0;
+  width:100%;
+  font-size:clamp(76px,12.15vw,184px);
+  line-height:.78;
+  letter-spacing:-.067em;
+  white-space:nowrap;
+  color:#102F50;
+  text-align:center;
+}
+.hero .masthead span{display:inline}
+.hero-rule{
+  width:100%;
+  height:1px;
+  margin:58px 0 28px;
+  background:rgba(23,59,99,.28);
+}
+.hero .intro{
+  width:min(760px,62vw);
+  margin:0 0 0 auto;
+}
+.hero .intro p{
+  margin:0;
+  font-size:clamp(19px,1.55vw,25px);
+  line-height:1.28;
+}
+
+.practice{
+  margin:0 var(--margin);
+  padding:0 0 105px;
+  border-top:1px solid rgba(23,59,99,.28);
+}
+.practice-heading{
+  padding:24px 0 52px;
+  font-size:13px;
+  letter-spacing:.08em;
+}
+.practice-list{
+  display:flex;
+  flex-direction:column;
+}
+.practice-item{
+  display:grid;
+  grid-template-columns:minmax(70px,1fr) 2.35fr;
+  gap:5vw;
+  padding:34px 0;
+  align-items:start;
+  transition:transform .28s cubic-bezier(.22,.7,.22,1);
+}
+.practice-number{
+  font-size:14px;
+  transition:color .2s ease,font-weight .2s ease;
+}
+.practice-item h2{
+  margin:0;
+  font-size:clamp(30px,3.25vw,50px);
+  line-height:.98;
+  letter-spacing:-.035em;
+  font-weight:400;
+  transition:font-weight .2s ease;
+}
+.practice-item p{
+  margin:10px 0 0;
+  max-width:620px;
+  font-size:17px;
+  line-height:1.3;
+  color:var(--muted);
+}
+.practice-item:hover{
+  transform:translateX(14px);
+}
+.practice-item:hover .practice-number{
+  color:var(--yellow);
+  font-weight:700;
+}
+.practice-item:hover h2{
+  font-weight:700;
+}
+
+/* Bring work closer and let the editorial rules create the rhythm. */
+.work{
+  padding-top:0;
+}
+.work .section-label{
+  padding-top:24px;
+  border-top:1px solid rgba(23,59,99,.28);
+}
+
+@media(max-width:760px){
+  .hero{
+    padding-top:64px;
+    padding-bottom:64px;
+  }
+  .hero .masthead{
+    font-size:clamp(68px,22vw,112px);
+    line-height:.8;
+    white-space:normal;
+    text-align:left;
+  }
+  .hero .masthead span{
+    display:block;
+  }
+  .hero-rule{
+    margin:42px 0 24px;
+  }
+  .hero .intro{
+    width:100%;
+  }
+  .practice{
+    padding-bottom:76px;
+  }
+  .practice-heading{
+    padding-bottom:30px;
+  }
+  .practice-item{
+    grid-template-columns:42px 1fr;
+    gap:12px;
+    padding:27px 0;
+  }
+  .practice-item:hover{
+    transform:none;
+  }
+  .practice-item h2{
+    font-size:34px;
+  }
+}
+
+/* V4.1 — left intro + three-column Practice */
+
+/* Intro returns to the left edge of the main grid */
+.hero .intro{
+  width:min(760px,62vw);
+  margin:0;
+}
+
+/* Practice becomes a horizontal counterpoint to the vertical work index */
+.practice-list{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(28px,4vw,64px);
+  align-items:stretch;
+}
+
+.practice-item{
+  display:flex;
+  flex-direction:column;
+  padding:10px 0 18px;
+  min-width:0;
+  transition:transform .28s cubic-bezier(.22,.7,.22,1);
+}
+
+.practice-item > div{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+}
+
+.practice-number{
+  display:block;
+  margin-bottom:clamp(8px,1vw,13px);
+}
+
+.practice-item h2{
+  max-width:10ch;
+  font-size:clamp(30px,3.15vw,48px);
+}
+
+.practice-item p{
+  max-width:30ch;
+  margin-top:18px;
+}
+
+.practice-item:hover{
+  transform:translateY(-8px);
+}
+
+/* No card borders/dividers: the change of direction is created by the grid itself. */
+
+@media(max-width:760px){
+  .hero .intro{
+    width:100%;
+  }
+  .practice-list{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+  .practice-item{
+    display:grid;
+    grid-template-columns:42px 1fr;
+    gap:12px;
+    padding:28px 0;
+  }
+  .practice-number{
+    margin:0;
+  }
+  .practice-item h2{
+    max-width:none;
+  }
+  .practice-item p{
+    max-width:34ch;
+    margin-top:10px;
+  }
+  .practice-item:hover{
+    transform:none;
+  }
+}
+
+/* V4.2 — centered intro block, left-aligned copy */
+.hero .intro{
+  width:min(760px,62vw);
+  margin-left:auto;
+  margin-right:auto;
+  text-align:left;
+}
+
+/* V4.3 — text links behave as accent interactions, not classic hyperlinks */
+a:hover{
+  text-decoration:none;
+}
+
+/* Editorial text CTAs */
+.intro a,
+.project-more a,
+.about a{
+  display:inline-block;
+  transform-origin:left center;
+  transition:
+    color .18s ease,
+    transform .22s cubic-bezier(.22,.7,.22,1),
+    font-weight .18s ease;
+}
+
+.intro a:hover,
+.project-more a:hover,
+.about a:hover{
+  color:var(--yellow);
+  font-weight:700;
+  transform:scale(1.065);
+}
+
+/* Navigation stays more restrained but follows the same interaction language */
+.site-header a{
+  transition:
+    color .18s ease,
+    transform .22s cubic-bezier(.22,.7,.22,1),
+    opacity .18s ease,
+    font-weight .18s ease;
+  transform-origin:center;
+}
+
+.site-header a:hover{
+  color:var(--yellow);
+  opacity:1;
+  font-weight:700;
+  transform:scale(1.055);
+}
+
+/* Avoid hover scaling on touch layouts */
+@media (pointer:coarse){
+  .intro a:hover,
+  .project-more a:hover,
+  .about a:hover,
+  .site-header a:hover{
+    transform:none;
+  }
+}
+
+/* V4.4 — intro aligned to the left, vertically centered in its section */
+.hero .intro{
+  width:min(760px,62vw);
+  margin:0;
+  padding:clamp(52px,5.5vw,82px) 0;
+  text-align:left;
+}
+
+/* The rule defines the top edge of the intro section;
+   remove the old asymmetric spacing below the masthead. */
+.hero-rule{
+  margin:58px 0 0;
+}
+
+/* Avoid adding extra space after the intro before the next section. */
+.hero{
+  padding-bottom:0;
+}
+
+@media(max-width:760px){
+  .hero .intro{
+    width:100%;
+    padding:44px 0;
+  }
+  .hero-rule{
+    margin:42px 0 0;
+  }
+}
+
+/* V4.7 — section-title cleanup + fixed project year */
+
+/* SELECTED WORK is already the beginning of the section:
+   no additional rule directly beneath/attached to its label. */
+.work .section-label{
+  border-top:0 !important;
+}
+
+/* The project block still shifts on hover, but the year stays anchored
+   to its original right-hand position. */
+.project:hover .project-row .year{
+  transform:translateX(-14px);
+}
+
+/* Keep the year stable during keyboard focus too, where applicable. */
+.project:focus-within .project-row .year{
+  transform:translateX(-14px);
+}
+
+.project-row .year{
+  transition:none;
+}
+
+@media(max-width:760px){
+  .project:hover .project-row .year,
+  .project:focus-within .project-row .year{
+    transform:none;
+  }
+}
+
+/* V4.8 — Selected Work section divider matches Practice exactly */
+
+/* The divider belongs to the section container, above its title. */
+.work{
+  border-top:1px solid rgba(23,59,99,.28);
+}
+
+/* Match PRACTICE / 01 spacing exactly. */
+.work .section-label{
+  border-top:0 !important;
+  padding-top:24px;
+  margin-bottom:52px;
+  font-size:13px;
+  letter-spacing:.08em;
+}
+
+@media(max-width:760px){
+  .work .section-label{
+    padding-top:24px;
+    margin-bottom:30px;
+  }
+}
+
+/* V4.9 — correct Selected Work divider placement */
+
+/* Remove the full-width line introduced in V4.8. */
+.work{
+  border-top:0 !important;
+}
+
+/* Use the existing inner line, constrained by the same content margins,
+   but place it ABOVE SELECTED WORK / 02. */
+.work .section-label{
+  position:relative;
+  border-top:0 !important;
+  padding-top:24px;
+  margin-top:0;
+  margin-bottom:52px;
+}
+
+.work .section-label::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:1px;
+  background:rgba(23,59,99,.28);
+}
+
+/* Ensure no second line remains below the section title. */
+.work .section-label::after{
+  content:none !important;
+  display:none !important;
+}
+
+@media(max-width:760px){
+  .work .section-label{
+    padding-top:24px;
+    margin-bottom:30px;
+  }
+}
+
+/* V4.10 — no divider between Selected Work title and project list */
+.work .section-label + *,
+.project-index{
+  border-top:0 !important;
+}
+.project-index::before,
+.project-index::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* V4.11 UI layer — more interface, still editorial */
+.status-strip{
+  margin:0 var(--margin);
+  min-height:58px;
+  border-top:1px solid rgba(23,59,99,.28);
+  border-bottom:1px solid rgba(23,59,99,.28);
+  display:grid;
+  grid-template-columns:1.15fr 1fr auto;
+  align-items:center;
+  gap:24px;
+  font-size:11px;
+  letter-spacing:.07em;
+}
+.status-item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  white-space:nowrap;
+}
+.status-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--yellow);
+  box-shadow:0 0 0 4px rgba(255,184,0,.16);
+}
+.status-time{
+  justify-content:flex-end;
+}
+.status-time strong{
+  font-size:11px;
+  font-weight:700;
+  color:var(--yellow);
+}
+
+.practice-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:auto;
+  padding-top:clamp(36px,3.5vw,48px);
+}
+.practice-tags span{
+  border:1px solid rgba(23,59,99,.30);
+  border-radius:999px;
+  padding:5px 9px 4px;
+  font-size:10px;
+  line-height:1;
+  letter-spacing:.06em;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.practice-item:hover .practice-tags span{
+  border-color:var(--yellow);
+}
+.practice-item:hover .practice-tags span:first-child{
+  background:var(--yellow);
+  color:var(--ink);
+}
+
+.work .section-label{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.section-count{
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:.08em;
+  opacity:.58;
+}
+
+/* Small index markers make the project rows feel more like an interface. */
+.project-row h2::after{
+  content:" ↗";
+  display:inline-block;
+  margin-left:.28em;
+  font-size:.42em;
+  vertical-align:top;
+  opacity:0;
+  color:var(--yellow);
+  transform:translate(-4px,3px);
+  transition:opacity .18s ease,transform .2s ease;
+}
+.project:hover .project-row h2::after{
+  opacity:1;
+  transform:translate(0,3px);
+}
+
+@media(max-width:760px){
+  .status-strip{
+    grid-template-columns:1fr auto;
+    padding:14px 0;
+    gap:10px 18px;
+  }
+  .status-strip .status-item:nth-child(2){display:none}
+  .practice-tags{margin-top:16px;padding-top:0}
+}
+
+/* V4.12 — UI refinements */
+
+/* 1. Status bar: three equally spaced fields */
+.status-strip{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.status-strip .status-item:nth-child(1){justify-content:flex-start}
+.status-strip .status-item:nth-child(2){justify-content:center}
+.status-strip .status-item:nth-child(3){justify-content:flex-end}
+
+/* 3. Practice hover: no vertical movement, only typographic emphasis */
+.practice-item:hover{
+  transform:none !important;
+}
+.practice-item:hover h2{
+  font-weight:700;
+}
+
+/* Chips behave consistently: all yellow or all neutral. */
+.practice-item:hover .practice-tags span{
+  border-color:var(--yellow);
+  background:var(--yellow);
+  color:var(--ink);
+}
+.practice-item:hover .practice-tags span:first-child{
+  background:var(--yellow);
+  color:var(--ink);
+}
+
+/* 4. Explore Project is permanently yellow.
+   Hover/focus only increases its presence; no color change. */
+.project-more a{
+  color:var(--yellow) !important;
+  font-weight:700;
+  text-decoration:none !important;
+  transform-origin:left center;
+  transition:transform .22s cubic-bezier(.22,.7,.22,1),font-weight .18s ease;
+}
+.project-more a:hover,
+.project-more a:focus-visible,
+.project-more a:active{
+  color:var(--yellow) !important;
+  font-weight:800;
+  transform:scale(1.065);
+  text-decoration:none !important;
+}
+
+/* 5. Remove yellow arrow next to project title */
+.project-row h2::after{
+  content:none !important;
+  display:none !important;
+}
+
+@media(max-width:760px){
+  .status-strip{
+    grid-template-columns:1fr 1fr;
+  }
+  .status-strip .status-item:nth-child(3){justify-content:flex-end}
+}
+
+/* V4.13 — Practice fields stay outlined on hover */
+.practice-item:hover .practice-tags span,
+.practice-item:hover .practice-tags span:first-child{
+  background:transparent !important;
+  border-color:var(--yellow);
+  color:var(--ink);
+}
+
+/* V4.14 — deepen the interface without adding decorative clutter */
+
+.hero-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+  font-size:10px;
+  letter-spacing:.08em;
+  opacity:.58;
+}
+
+.hero-rule{
+  position:relative;
+}
+
+.scroll-cue{
+  display:block;
+  width:max-content;
+  margin-top:12px;
+  font-size:10px;
+  letter-spacing:.08em;
+  opacity:.55;
+  transition:color .18s ease,opacity .18s ease,transform .22s ease;
+}
+.scroll-cue:hover{
+  color:var(--yellow);
+  opacity:1;
+  transform:translateY(3px);
+}
+
+.status-mode{
+  justify-content:center;
+  gap:10px;
+}
+.status-mode strong{
+  min-width:76px;
+  color:var(--yellow);
+  font-size:11px;
+  font-weight:700;
+  text-align:left;
+}
+
+/* Give Practice a subtle "active module" behavior:
+   content stays still; only hierarchy changes. */
+.practice-item{
+  position:relative;
+}
+.practice-item::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:0;
+  height:2px;
+  background:var(--yellow);
+  transition:width .28s cubic-bezier(.22,.7,.22,1);
+}
+.practice-item:hover::before{
+  width:34px;
+}
+
+/* Project metadata behaves like a compact UI readout */
+.project .tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.project .tags span{
+  border:1px solid rgba(23,59,99,.22);
+  border-radius:999px;
+  padding:4px 8px 3px;
+  font-size:10px;
+  letter-spacing:.04em;
+  transition:border-color .18s ease;
+}
+.project:hover .tags span{
+  border-color:rgba(255,184,0,.85);
+}
+
+/* Tiny progress indicator attached to the Selected Work section count */
+.section-count{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.section-count::before{
+  content:"";
+  width:34px;
+  height:1px;
+  background:var(--yellow);
+}
+
+@media(max-width:760px){
+  .hero-meta span:last-child{display:none}
+  .scroll-cue{margin-top:10px}
+  .practice-item::before{display:none}
+}
+
+/* V5 — Archive: same identity, less obedience */
+.archive-page{overflow-x:hidden}
+.archive-hero{
+  padding:clamp(86px,10vh,130px) var(--margin) 0;
+}
+.archive-meta{
+  display:flex;justify-content:space-between;
+  margin-bottom:18px;font-size:10px;letter-spacing:.08em;opacity:.58;
+}
+.archive-hero h1{
+  margin:0;color:#102F50;
+  font-size:clamp(110px,20vw,310px);
+  line-height:.72;letter-spacing:-.075em;font-weight:700;
+}
+.archive-rule{height:1px;background:rgba(23,59,99,.28);margin-top:64px}
+.archive-intro{
+  max-width:720px;padding:clamp(48px,5vw,76px) 0;
+}
+.archive-intro p{margin:0;font-size:clamp(20px,1.8vw,28px);line-height:1.25}
+
+.archive-toolbar{
+  margin:0 var(--margin);
+  min-height:64px;
+  border-top:1px solid rgba(23,59,99,.28);
+  border-bottom:1px solid rgba(23,59,99,.28);
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:30px;
+  font-size:10px;letter-spacing:.06em;
+}
+.archive-status{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.archive-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:7px}
+.archive-filter{
+  appearance:none;background:transparent;color:var(--ink);
+  border:1px solid rgba(23,59,99,.25);border-radius:999px;
+  padding:6px 10px 5px;font:inherit;cursor:pointer;
+  transition:border-color .18s ease,font-weight .18s ease,transform .18s ease;
+}
+.archive-filter:hover,.archive-filter.is-active{
+  border-color:var(--yellow);font-weight:700;
+}
+.archive-filter:hover{transform:scale(1.04)}
+.archive-count{white-space:nowrap}.archive-count strong{color:var(--yellow)}
+
+.archive-grid{
+  margin:42px var(--margin) 120px;
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:18px;
+  align-items:start;
+}
+.archive-card{
+  grid-column:span 4;
+  min-height:430px;
+  border:1px solid rgba(23,59,99,.22);
+  padding:14px;
+  display:flex;flex-direction:column;
+  transition:transform .26s cubic-bezier(.22,.7,.22,1),border-color .18s ease;
+}
+.archive-card:hover{border-color:var(--yellow);transform:translateY(-5px)}
+.archive-card--feature{grid-column:span 7;min-height:620px}
+.archive-card--photo{grid-column:span 5;min-height:520px;margin-top:80px}
+.archive-card--drawing{grid-column:span 4;margin-top:-30px}
+.archive-card--tattoo{grid-column:span 4;margin-top:30px}
+.archive-card--type{grid-column:span 4;margin-top:-10px}
+.archive-card--editorial{grid-column:span 5}
+.archive-card--note{grid-column:span 3;margin-top:60px}
+.archive-card--empty{grid-column:span 4;margin-top:10px}
+.archive-card.is-hidden{display:none}
+.archive-card-head{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.07em;opacity:.6}
+.archive-card-copy{margin-top:auto;padding-top:24px}
+.archive-card-copy h2{margin:0;font-size:26px;letter-spacing:-.035em}
+.archive-card-copy p{margin:6px 0 0;font-size:12px;opacity:.62}
+
+.archive-object-stage{position:relative;min-height:490px;display:grid;place-items:center;perspective:1200px}
+.mini-book{
+  --w:230px;--h:325px;--d:30px;
+  width:var(--w);height:var(--h);position:relative;transform-style:preserve-3d;
+  transform:rotateX(-8deg) rotateY(-24deg) rotateZ(2deg);
+  transition:transform .5s cubic-bezier(.22,.7,.22,1);
+}
+.archive-card--feature:hover .mini-book{transform:rotateX(-5deg) rotateY(-12deg) rotateZ(-1deg) scale(1.03)}
+.mini-cover{position:absolute;inset:0;transform:translateZ(15px);background:var(--yellow);border:1px solid rgba(23,59,99,.45);padding:18px;display:flex;flex-direction:column}
+.mini-cover small,.mini-cover span{font-size:8px;letter-spacing:.08em}
+.mini-cover strong{margin:auto 0;font-size:48px;letter-spacing:-.06em}
+.mini-spine{position:absolute;left:-15px;width:30px;height:325px;background:#102F50;color:var(--yellow);transform:rotateY(-90deg);display:grid;place-items:center;writing-mode:vertical-rl;font-size:8px;letter-spacing:.08em}
+.mini-pages{position:absolute;right:-15px;top:4px;width:30px;height:317px;transform:rotateY(90deg);background:repeating-linear-gradient(90deg,#eee9dc 0 2px,#d8d1c2 2px 3px)}
+.object-hint{position:absolute;bottom:22px;font-size:9px;letter-spacing:.07em;opacity:.55}
+
+.contact-sheet{margin:auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.contact-sheet i{display:block;aspect-ratio:4/5;background:linear-gradient(145deg,#173b63,#f4f2ea);border:1px solid rgba(23,59,99,.2)}
+.contact-sheet i:nth-child(2n){background:linear-gradient(25deg,var(--yellow),#173b63)}
+.paper-stack{position:relative;height:280px;margin:auto 0}
+.paper-stack div{position:absolute;width:62%;height:82%;left:19%;top:8%;border:1px solid rgba(23,59,99,.25);background:#eee9dc}
+.paper-stack div:nth-child(1){transform:rotate(-8deg)}
+.paper-stack div:nth-child(2){transform:rotate(6deg)}
+.paper-stack .sketch-paper{transform:rotate(-1deg);display:grid;place-items:center;font-size:72px;color:#173b63}
+.tattoo-study{height:270px;margin:auto 0;position:relative;display:grid;place-items:center;border-radius:50%;background:#e6d7c0}
+.tattoo-line{font-size:120px;transform:rotate(-18deg);color:#173b63}.tattoo-mark{position:absolute;bottom:14px;right:18px;font-size:9px}
+.type-play{margin:auto 0;display:flex;align-items:baseline;justify-content:space-around;font-size:100px;font-weight:700;letter-spacing:-.08em}
+.type-play span:nth-child(2){color:var(--yellow)}
+.flat-publication{margin:auto;aspect-ratio:3/4;width:68%;background:#173b63;color:#f4f2ea;padding:20px;display:flex;flex-direction:column;justify-content:center}
+.flat-publication span{font-size:34px}.flat-publication strong{font-size:58px;color:var(--yellow);line-height:.8}.flat-publication small{margin-top:16px;font-size:8px}
+.archive-card blockquote{margin:auto 8%;font-size:clamp(24px,3vw,44px);line-height:1.02;letter-spacing:-.04em}
+.empty-object{margin:auto;width:170px;height:170px;border:1px dashed rgba(23,59,99,.35);display:grid;place-items:center}
+.empty-object span{font-size:48px;color:var(--yellow)}
+.archive-footer{
+  margin:0 var(--margin);padding:28px 0 42px;border-top:1px solid rgba(23,59,99,.28);
+  display:flex;justify-content:space-between;font-size:10px;letter-spacing:.07em;
+}
+.archive-footer a{color:var(--yellow);font-weight:700;text-decoration:none}
+
+@media(max-width:900px){
+  .archive-toolbar{grid-template-columns:1fr auto;padding:14px 0}
+  .archive-filters{grid-column:1/-1;grid-row:2;justify-content:flex-start;padding-bottom:12px}
+  .archive-card,.archive-card--feature,.archive-card--photo,.archive-card--drawing,.archive-card--tattoo,.archive-card--type,.archive-card--editorial,.archive-card--note,.archive-card--empty{
+    grid-column:span 6;margin-top:0;
+  }
+}
+@media(max-width:600px){
+  .archive-meta span:last-child{display:none}
+  .archive-hero h1{font-size:25vw}
+  .archive-grid{margin-top:24px;gap:12px}
+  .archive-card,.archive-card--feature,.archive-card--photo,.archive-card--drawing,.archive-card--tattoo,.archive-card--type,.archive-card--editorial,.archive-card--note,.archive-card--empty{grid-column:1/-1}
+  .archive-toolbar{grid-template-columns:1fr auto}
+  .archive-status span:last-child{display:none}
+  .archive-object-stage{min-height:420px}
+  .mini-book{--w:190px;--h:270px;--d:26px}
+  .mini-spine{left:-13px;width:26px;height:270px}
+  .mini-pages{right:-13px;width:26px;height:262px}
+}
+
+/* V5.1 — keep the custom yellow cursor visible throughout Archive */
+.archive-page,
+.archive-page a,
+.archive-page button,
+.archive-page .archive-card,
+.archive-page .archive-filter,
+.archive-page .archive-object-stage{
+  cursor:none !important;
+}
+
+.archive-page .cursor-dot{
+  display:block !important;
+  position:fixed;
+  z-index:99999 !important;
+  pointer-events:none !important;
+}
+
+/* Preserve the same interactive enlargement language used on Home */
+.archive-page .cursor-dot.is-hovering{
+  transform:translate(-50%,-50%) scale(1.8);
+}
+
+/* V5.2 — Archive uses the same custom cursor component as Home */
+.archive-page .cursor{display:block!important;position:fixed;z-index:99999!important;pointer-events:none!important;}
+.archive-page .cursor.is-hover{width:38px;height:38px;}
+@media (pointer:coarse){.archive-page{cursor:auto!important}.archive-page .cursor{display:none!important}}
+
+/* V5.3 — Archive is explicitly project-based */
+.archive-projects .archive-card{
+  cursor:none;
+}
+.archive-project-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:9px;
+}
+.archive-project-meta span{
+  padding:4px 7px 3px;
+  border:1px solid rgba(23,59,99,.24);
+  border-radius:999px;
+  font-size:8px;
+  line-height:1;
+  letter-spacing:.07em;
+}
+.archive-card:hover .archive-project-meta span{
+  border-color:var(--yellow);
+}
+
+/* Tattoo projects remain individual archive entries rather than one generic category card. */
+.tattoo-study--02{
+  background:#eadfce;
+}
+.tattoo-study--02 .tattoo-line{
+  font-size:96px;
+  transform:none;
+}
+
+/* Filtering reflows visible projects into a cleaner grid instead of preserving empty category gaps. */
+.archive-grid.is-filtered{
+  grid-template-columns:repeat(12,minmax(0,1fr));
+}
+.archive-grid.is-filtered .archive-card:not(.is-hidden){
+  grid-column:span 4;
+  margin-top:0;
+  min-height:430px;
+}
+.archive-grid.is-filtered .archive-card--feature:not(.is-hidden){
+  grid-column:span 6;
+  min-height:560px;
+}
+@media(max-width:900px){
+  .archive-grid.is-filtered .archive-card:not(.is-hidden),
+  .archive-grid.is-filtered .archive-card--feature:not(.is-hidden){
+    grid-column:span 6;
+  }
+}
+@media(max-width:600px){
+  .archive-grid.is-filtered .archive-card:not(.is-hidden),
+  .archive-grid.is-filtered .archive-card--feature:not(.is-hidden){
+    grid-column:1/-1;
+  }
+}
+
+/* V5.4 — persistent page-name slot in the top-left navigation */
+.site-header .page-label{
+  font:inherit;
+  color:inherit;
+  text-decoration:none;
+}
+
+/* V5.5 — current page label keeps the original bold navigation treatment */
+.site-header .page-label{
+  font:inherit;
+  font-weight:700;
+  color:inherit;
+  letter-spacing:inherit;
+  text-transform:inherit;
+  line-height:inherit;
+}
+
+/* V5.6 — Archive footer copyright mirrors the site's original footer logic */
+.archive-footer{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+}
+.archive-footer .archive-copyright{
+  justify-self:center;
+  text-align:center;
+}
+.archive-footer a{
+  justify-self:end;
+}
+
+@media(max-width:600px){
+  .archive-footer{
+    grid-template-columns:1fr auto;
+    row-gap:18px;
+  }
+  .archive-footer .archive-copyright{
+    grid-column:1/-1;
+    grid-row:2;
+    justify-self:center;
+  }
+}
+
+/* V5.7 — Archive becomes a compact, gapless project matrix */
+
+/* Every project occupies a precise cell: no masonry offsets, no empty holes. */
+.archive-grid,
+.archive-grid.is-filtered{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  grid-auto-flow:row dense;
+  grid-auto-rows:92px;
+  gap:12px;
+  align-items:stretch;
+}
+
+/* Reset all previous staggered offsets. */
+.archive-grid .archive-card,
+.archive-grid.is-filtered .archive-card:not(.is-hidden){
+  margin-top:0 !important;
+  min-height:0;
+  height:auto;
+}
+
+/* Deliberate modular sizes: they tile together rather than float independently. */
+.archive-grid .archive-card--feature,
+.archive-grid.is-filtered .archive-card--feature:not(.is-hidden){
+  grid-column:span 6;
+  grid-row:span 6;
+}
+.archive-grid .archive-card--editorial,
+.archive-grid.is-filtered .archive-card--editorial:not(.is-hidden){
+  grid-column:span 3;
+  grid-row:span 3;
+}
+.archive-grid .archive-card--photo,
+.archive-grid.is-filtered .archive-card--photo:not(.is-hidden){
+  grid-column:span 6;
+  grid-row:span 4;
+}
+.archive-grid .archive-card--drawing,
+.archive-grid.is-filtered .archive-card--drawing:not(.is-hidden),
+.archive-grid .archive-card--tattoo,
+.archive-grid.is-filtered .archive-card--tattoo:not(.is-hidden),
+.archive-grid .archive-card--type,
+.archive-grid.is-filtered .archive-card--type:not(.is-hidden){
+  grid-column:span 3;
+  grid-row:span 3;
+}
+.archive-grid .archive-card--note,
+.archive-grid.is-filtered .archive-card--note:not(.is-hidden){
+  grid-column:span 6;
+  grid-row:span 3;
+}
+
+/* Keep visuals flexible inside the tighter modules. */
+.archive-grid .archive-object-stage{
+  min-height:0;
+  height:100%;
+}
+.archive-grid .archive-card--feature .archive-object-stage{
+  min-height:390px;
+}
+.archive-grid .contact-sheet{
+  margin:auto 0;
+}
+.archive-grid .paper-stack,
+.archive-grid .tattoo-study{
+  height:190px;
+}
+.archive-grid .type-play{
+  font-size:72px;
+}
+
+/* Filtered categories should also pack from the top-left with no reserved gaps. */
+.archive-card.is-hidden{
+  display:none !important;
+}
+
+@media(max-width:900px){
+  .archive-grid,
+  .archive-grid.is-filtered{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    grid-auto-rows:90px;
+  }
+  .archive-grid .archive-card--feature,
+  .archive-grid.is-filtered .archive-card--feature:not(.is-hidden),
+  .archive-grid .archive-card--photo,
+  .archive-grid.is-filtered .archive-card--photo:not(.is-hidden),
+  .archive-grid .archive-card--note,
+  .archive-grid.is-filtered .archive-card--note:not(.is-hidden){
+    grid-column:span 6;
+  }
+  .archive-grid .archive-card--editorial,
+  .archive-grid.is-filtered .archive-card--editorial:not(.is-hidden),
+  .archive-grid .archive-card--drawing,
+  .archive-grid.is-filtered .archive-card--drawing:not(.is-hidden),
+  .archive-grid .archive-card--tattoo,
+  .archive-grid.is-filtered .archive-card--tattoo:not(.is-hidden),
+  .archive-grid .archive-card--type,
+  .archive-grid.is-filtered .archive-card--type:not(.is-hidden){
+    grid-column:span 3;
+  }
+}
+
+@media(max-width:600px){
+  .archive-grid,
+  .archive-grid.is-filtered{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .archive-grid .archive-card,
+  .archive-grid.is-filtered .archive-card:not(.is-hidden){
+    min-height:390px;
+  }
+  .archive-grid .archive-card--feature,
+  .archive-grid.is-filtered .archive-card--feature:not(.is-hidden){
+    min-height:540px;
+  }
+}
+
+/* V5.8 — Archive card containment pass
+   Everything must stay physically inside its assigned grid module. */
+
+.archive-grid .archive-card{
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  min-width:0;
+  min-height:0;
+}
+
+/* Header and copy are never allowed to force a card wider than its cell. */
+.archive-card-head,
+.archive-card-copy,
+.archive-project-meta{
+  min-width:0;
+  max-width:100%;
+}
+.archive-card-head{
+  gap:10px;
+}
+.archive-card-head span{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.archive-card-head span:last-child{
+  text-align:right;
+}
+
+.archive-card-copy{
+  overflow:hidden;
+}
+.archive-card-copy h2,
+.archive-card-copy p{
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+.archive-card-copy h2{
+  font-size:clamp(18px,1.7vw,26px);
+  line-height:.95;
+}
+.archive-card-copy p{
+  line-height:1.25;
+}
+
+.archive-project-meta{
+  overflow:hidden;
+}
+.archive-project-meta span{
+  max-width:100%;
+  white-space:nowrap;
+}
+
+/* Visual modules scale to the card instead of imposing their old fixed dimensions. */
+.archive-card > .contact-sheet,
+.archive-card > .paper-stack,
+.archive-card > .tattoo-study,
+.archive-card > .type-play,
+.archive-card > .flat-publication,
+.archive-card > blockquote,
+.archive-card > .archive-object-stage{
+  min-width:0;
+  max-width:100%;
+  box-sizing:border-box;
+}
+
+.archive-card--editorial .flat-publication{
+  width:min(72%,180px);
+  max-height:190px;
+  padding:14px;
+}
+.archive-card--editorial .flat-publication span{
+  font-size:clamp(18px,2vw,28px);
+}
+.archive-card--editorial .flat-publication strong{
+  font-size:clamp(30px,3.4vw,48px);
+}
+.archive-card--editorial .flat-publication small{
+  font-size:7px;
+  overflow-wrap:anywhere;
+}
+
+.archive-grid .paper-stack,
+.archive-grid .tattoo-study{
+  height:min(170px,42%);
+}
+.archive-grid .type-play{
+  font-size:clamp(42px,5vw,68px);
+  overflow:hidden;
+}
+.archive-grid .archive-card blockquote{
+  max-height:170px;
+  overflow:hidden;
+  font-size:clamp(18px,2.3vw,32px);
+}
+
+/* The 3D object gets a bounded stage so its geometry cannot spill outside Matter. */
+.archive-card--feature .archive-object-stage{
+  overflow:hidden;
+  min-height:0;
+}
+.archive-card--feature .mini-book{
+  --w:clamp(150px,17vw,220px);
+  --h:clamp(212px,24vw,310px);
+}
+.archive-card--feature .mini-spine{
+  height:var(--h);
+}
+.archive-card--feature .mini-pages{
+  height:calc(var(--h) - 8px);
+}
+
+/* Small archive modules need denser internal spacing. */
+.archive-grid .archive-card:not(.archive-card--feature){
+  padding:12px;
+}
+.archive-grid .archive-card:not(.archive-card--feature) .archive-card-copy{
+  padding-top:12px;
+}
+.archive-grid .archive-card:not(.archive-card--feature) .archive-project-meta{
+  gap:4px;
+  margin-bottom:7px;
+}
+.archive-grid .archive-card:not(.archive-card--feature) .archive-project-meta span{
+  padding:3px 5px 2px;
+  font-size:7px;
+}
+
+/* At narrower desktop widths, reduce typography before the layout reaches tablet mode. */
+@media(max-width:1100px) and (min-width:901px){
+  .archive-grid{
+    grid-auto-rows:86px;
+  }
+  .archive-card-head{
+    font-size:8px;
+  }
+  .archive-card-copy h2{
+    font-size:19px;
+  }
+  .archive-card-copy p{
+    font-size:10px;
+  }
+}
+
+/* Tablet: give each module enough vertical room for its content. */
+@media(max-width:900px) and (min-width:601px){
+  .archive-grid,
+  .archive-grid.is-filtered{
+    grid-auto-rows:96px;
+  }
+  .archive-grid .archive-card--editorial,
+  .archive-grid .archive-card--drawing,
+  .archive-grid .archive-card--tattoo,
+  .archive-grid .archive-card--type{
+    grid-row:span 4;
+  }
+}
+
+/* Mobile returns to natural-height cards: no clipping caused by desktop module heights. */
+@media(max-width:600px){
+  .archive-grid .archive-card,
+  .archive-grid.is-filtered .archive-card:not(.is-hidden){
+    height:auto;
+    overflow:hidden;
+  }
+  .archive-grid .archive-card--feature .archive-object-stage{
+    min-height:390px;
+  }
+}
+
+/* V5.9 — continuous Archive typographic stream */
+.archive-title-marquee{position:relative;width:100%;overflow:hidden;white-space:nowrap;margin:0;z-index:1}
+.archive-title-track{display:flex;width:max-content;will-change:transform;animation:archiveTitleScroll 24s linear 1.5s infinite}
+.archive-title-set{display:flex;align-items:baseline;flex:none}
+.archive-title-set span{flex:none;display:inline-block;margin-right:.22em;color:var(--navy,#173b63);font-size:clamp(84px,14vw,230px);line-height:.82;letter-spacing:-.075em;font-weight:700}
+.archive-title-set span:nth-child(2),.archive-title-set span:nth-child(5){font-weight:400;letter-spacing:-.065em}
+.archive-title-set span:nth-child(3){letter-spacing:-.055em}
+.archive-title-set span:nth-child(4){font-weight:400;letter-spacing:-.08em}
+.archive-title-set span:nth-child(6){letter-spacing:-.045em}
+@keyframes archiveTitleScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@media(max-width:600px){.archive-title-track{animation-duration:18s}.archive-title-set span{font-size:clamp(72px,25vw,130px);margin-right:.18em}}
+@media(prefers-reduced-motion:reduce){.archive-title-track{animation:none;transform:none}}
+
+/* V6.0 — controlled per-letter hero interaction */
+.dynamic-hero-name{display:flex;align-items:baseline;white-space:nowrap}
+.dynamic-hero-name .hero-char{
+ display:inline-block;transform-origin:center 68%;
+ transition:font-weight 1.55s cubic-bezier(.16,1,.3,1),
+ font-variation-settings 1.55s cubic-bezier(.16,1,.3,1),
+ transform 1.45s cubic-bezier(.16,1,.3,1);
+}
+.dynamic-hero-name .hero-space{width:.28em;flex:none}
+.dynamic-hero-name .hero-char.hero-thin{font-weight:200;font-variation-settings:"wght" 200}
+.dynamic-hero-name .hero-char.hero-regular{font-weight:400;font-variation-settings:"wght" 400}
+.dynamic-hero-name .hero-char.hero-bold{font-weight:850;font-variation-settings:"wght" 850}
+.dynamic-hero-name .hero-char.hero-active{transform:scale(1.002,1.006)}
+.dynamic-hero-name .hero-char.hero-exiting{
+ transition:font-weight .76s cubic-bezier(.4,0,.2,1),
+ font-variation-settings .76s cubic-bezier(.4,0,.2,1),
+ transform .72s cubic-bezier(.4,0,.2,1);
+}
+
+/* V6.1 — keep the dynamic masthead exactly inside the page margins */
+.dynamic-hero-name{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  justify-content:space-between;
+  overflow:visible;
+  letter-spacing:0 !important;
+}
+
+.dynamic-hero-name .hero-char{
+  flex:0 1 auto;
+  min-width:0;
+  letter-spacing:inherit;
+}
+
+/* The space participates in the same margin-to-margin fit instead of adding
+   extra fixed width that can push the last letters outside the container. */
+.dynamic-hero-name .hero-space{
+  width:auto;
+  flex:1 1 .28em;
+  min-width:.12em;
+  max-width:.32em;
+}
+
+/* Preserve the original masthead's available content width. */
+.hero .dynamic-hero-name,
+.hero-section .dynamic-hero-name{
+  box-sizing:border-box;
+  margin-left:0;
+  margin-right:0;
+}
+
+/* V6.5 — client credit inside project title */
+.project-row h2{
+  display:flex;
+  align-items:baseline;
+  gap:.42em;
+  flex-wrap:wrap;
+}
+.project-client{
+  font-size:.42em;
+  line-height:1;
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:0;
+  white-space:nowrap;
+}
+/* Keep client credit understated when the project title becomes bold. */
+.project:hover .project-client,
+.project:focus-within .project-client{
+  font-weight:400;
+}
+
+/* Rail fix: keep it visually persistent while project rows expand. */
+.continuous-rail{
+  contain:layout;
+}
+
+/* V6.6 — understated client credit */
+.project-client{
+  opacity:.70;
+  font-style:italic;
+}
+
+/* V10.1 — navbar typography unified to Archive size across every page */
+.site-header,
+.site-header .page-label,
+.site-header nav,
+.site-header nav a{
+  font-size:14px !important;
+  line-height:1.2;
+  letter-spacing:.04em;
+}
