@@ -1596,3 +1596,42 @@ a:hover{
     white-space:nowrap;
   }
 }
+
+/* Homepage V1: keep every single-page navigation destination available. */
+@media(max-width:760px){
+  .homepage .site-header{flex-wrap:wrap;gap:20px;}
+  .homepage .site-header nav{flex-wrap:wrap;gap:16px;}
+  .homepage .site-header nav a:first-child{display:inline;}
+}
+
+/* Homepage V1: extend existing section typography and page guides. */
+.homepage .hero-intro-title{
+  margin:0 0 28px;
+  font-size:clamp(28px,3.15vw,48px);
+  font-weight:700;
+  line-height:1.04;
+  letter-spacing:-.035em;
+}
+.homepage .home-copy,
+.homepage .contact-links{grid-column:2;min-width:0;}
+.homepage .home-copy{max-width:720px;font-size:22px;line-height:1.3;}
+.homepage .home-copy p{margin:0 0 22px;}
+.homepage .home-copy p:last-child{margin-bottom:0;}
+.homepage .contact-links{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:32px;margin-top:32px;
+}
+.homepage .contact-links a{
+  display:flex;flex-direction:column;align-items:flex-start;
+  gap:12px;white-space:normal;overflow-wrap:anywhere;
+}
+.homepage .contact-links span{font-size:13px;letter-spacing:.08em;font-weight:400;}
+.homepage .contact-links strong{font-size:clamp(16px,1.4vw,20px);font-weight:700;}
+.homepage .home-archive>a{white-space:normal;line-height:1.4;}
+.homepage main>section[id]{scroll-margin-top:28px;}
+@media(max-width:760px){
+  .homepage .home-copy,.homepage .contact-links{grid-column:1;}
+  .homepage .home-copy{font-size:19px;}
+  .homepage .about h2{font-size:clamp(34px,8vw,52px);overflow-wrap:break-word;}
+  .homepage .contact-links{grid-template-columns:1fr;}
+}

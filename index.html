@@ -10,31 +10,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="homepage">
   <div class="cursor" aria-hidden="true"></div>
 
   <header class="site-header">
-    <span class="page-label">INDEX</span>
+    <a class="page-label" href="#top">INDEX</a>
     <nav aria-label="Main navigation">
+      <a href="#about">ABOUT</a>
+      <a href="#practice">PRACTICE</a>
       <a href="#work">WORK</a>
-      <a href="archive.html">ARCHIVE</a>
-      <a href="about.html">ABOUT</a>
+      <a href="#archive">ARCHIVE</a>
+      <a href="#contact">CONTACT</a>
     </nav>
   </header>
 
   <main id="top">
     <section class="hero">
       <div class="hero-meta"><span>PORTFOLIO / 2026</span><span>INDEPENDENT PRACTICE</span></div><h1 class="masthead dynamic-hero-name" aria-label="Gianmarco Fabeni">GIANMARCO FABENI</h1>
-      <div class="hero-rule"></div><span class="scroll-cue">SCROLL TO EXPLORE ↓</span>
+      <div class="hero-rule"></div><a class="scroll-cue" href="#work">SELECTED WORK ↓</a>
       <div class="intro">
-        <p>I research, edit and shape ideas into publications, visual systems and content — exploring culture, design and sustainability. <a href="about.html">ABOUT GIANMARCO ↗</a></p>
+        <h2 class="hero-intro-title">VISUAL &amp; EDITORIAL DESIGNER FOR<br>INDEPENDENT AND RESPONSIBLE BUSINESSES.</h2>
+        <p>I work across editorial design, visual communication and brand identity, building clear and coherent visual systems across different formats and touchpoints.</p>
       </div>
     </section>
 
-    <section class="status-strip" aria-label="Current status">
+    <div class="status-strip" aria-label="Current status">
       <div class="status-item"><span class="status-dot"></span><span>AVAILABLE FOR SELECTED PROJECTS</span></div>
       <div class="status-item status-mode"><span>FOCUS</span><strong id="focus-mode">EDITORIAL</strong></div>
       <div class="status-item status-time"><span>LOCAL TIME</span><strong id="local-time">--:--</strong></div>
+    </div>
+
+    <section class="about home-about" id="about">
+      <p class="eyebrow">ABOUT</p>
+      <h2>I LIKE THINGS THAT MAKE SENSE TOGETHER.</h2>
+      <div class="home-copy">
+        <p>I'm Gianmarco, a visual and editorial designer with a background in Fashion Design and Communication.</p>
+        <p>I approach design as a system rather than a collection of isolated outputs. From publications to identities, I connect content, imagery and typography to build a coherent visual language across different formats and touchpoints.</p>
+        <p>I'm particularly drawn to independent and responsible businesses, where design can give structure to ideas and make communication clearer and more intentional.</p>
+      </div>
     </section>
 
     <section class="practice" id="practice" aria-labelledby="practice-title">
@@ -45,7 +58,7 @@
           <span class="practice-number">01</span>
           <div>
             <h2>EDITORIAL DESIGN</h2>
-            <p>Publications, magazines and editorial systems where typography, imagery and design choices shape how content is read and experienced.</p><div class="practice-tags"><span>PRINT</span><span>TYPE</span><span>LAYOUT</span></div>
+            <p>I design publications and editorial systems that give structure to content and make information clear, engaging and easy to navigate.</p><div class="practice-tags"><span>Publications</span><span>Reports</span><span>Magazines</span><span>Guides</span><span>Catalogues</span></div>
           </div>
         </article>
 
@@ -53,15 +66,15 @@
           <span class="practice-number">02</span>
           <div>
             <h2>VISUAL COMMUNICATION</h2>
-            <p>Visual communication systems that turn ideas into clear, coherent and recognisable visual languages.</p><div class="practice-tags"><span>IDENTITY</span><span>DIGITAL</span><span>CONTENT</span></div>
+            <p>I translate ideas and information into visual systems designed to communicate clearly across different formats.</p><div class="practice-tags"><span>Campaigns</span><span>Presentations</span><span>Information Design</span><span>Visual Content</span></div>
           </div>
         </article>
 
         <article class="practice-item">
           <span class="practice-number">03</span>
           <div>
-            <h2>RESEARCH &amp; STRATEGY</h2>
-            <p>Research and analysis used to understand context and guide informed design decisions.</p><div class="practice-tags"><span>RESEARCH</span><span>SYSTEMS</span><span>IMPACT</span></div>
+            <h2>BRAND &amp; VISUAL IDENTITY</h2>
+            <p>I build visual identities that remain coherent as a brand moves across physical and digital touchpoints.</p><div class="practice-tags"><span>Visual Identity</span><span>Art Direction</span><span>Brand Applications</span></div>
           </div>
         </article>
       </div>
@@ -75,49 +88,55 @@
           <div class="project-row">
             <span class="number">01.</span>
             <h2><span class="project-title-main"><span class="project-title-prefix">THE DENIM</span> <span class="project-title-last">BRIEF</span></span><span class="project-client">for Levi Strauss</span></h2>
-            <span class="year">2024–26</span>
           </div>
           <p class="tags">Content Creation · Visual Communication · Corporate Communication</p>
-          <div class="project-more"><p>An internal communication project connecting retail data, product knowledge and store culture through editorial content.</p><a href="denim-brief.html" aria-label="Explore The Denim Brief">EXPLORE PROJECT ↗</a></div>
+          <div class="project-more"><p>An internal communication project connecting retail data, product knowledge and store culture through editorial content.</p><a href="https://www.behance.net/gallery/242064799/Levi-Strauss-The-Denim-Brief" target="_blank" rel="noopener noreferrer" aria-label="Explore The Denim Brief">EXPLORE PROJECT ↗</a></div>
         </article>
 
         <article class="project" tabindex="0">
           <div class="project-row">
             <span class="number">02.</span>
             <h2>FROM TEXTILE TO PAGE</h2>
-            <span class="year">2025</span>
           </div>
           <p class="tags">Research · ESG · Editorial Design</p>
-          <div class="project-more"><p>A research-led editorial project exploring how ESG principles can inform visual design, from production and material choices to inclusive communication.</p><a href="from-textile-to-page.html" aria-label="Explore From Textile to Page">EXPLORE PROJECT ↗</a></div>
+          <div class="project-more"><p>A research-led editorial project exploring how ESG principles can inform visual design, from production and material choices to inclusive communication.</p><a href="https://www.behance.net/gallery/242918231/Dal-tessuto-alla-pagina" target="_blank" rel="noopener noreferrer" aria-label="Explore From Textile to Page">EXPLORE PROJECT ↗</a></div>
         </article>
 
         <article class="project" tabindex="0">
           <div class="project-row">
             <span class="number">03.</span>
             <h2>WAVES</h2>
-            <span class="year">2024</span>
           </div>
           <p class="tags">Community · Social Media · Content Strategy</p>
-          <div class="project-more"><p>A communication ecosystem designed to build and engage a community through editorial content, social media, podcasts, music and events.</p><a href="waves.html" aria-label="Explore Waves">EXPLORE PROJECT ↗</a></div>
+          <div class="project-more"><p>A communication ecosystem designed to build and engage a community through editorial content, social media, podcasts, music and events.</p><a href="https://www.behance.net/gallery/209342683/Waves-Magazine" target="_blank" rel="noopener noreferrer" aria-label="Explore Waves">EXPLORE PROJECT ↗</a></div>
         </article>
 
         <article class="project" tabindex="0">
           <div class="project-row">
             <span class="number">04.</span>
             <h2>AGAPE BAG</h2>
-            <span class="year">2020–23</span>
           </div>
           <p class="tags">Branding · Web Design · Visual Identity</p>
-          <div class="project-more"><p>A visual identity developed to translate the brand’s character into a coherent visual language, extending from its core identity to web and physical touchpoints.</p><a href="agape-bag.html" aria-label="Explore Agape Bag">EXPLORE PROJECT ↗</a></div>
+          <div class="project-more"><p>A visual identity developed to translate the brand’s character into a coherent visual language, extending from its core identity to web and physical touchpoints.</p><a href="https://www.behance.net/gallery/208869953/Agape-Bag-Branding" target="_blank" rel="noopener noreferrer" aria-label="Explore Agape Bag">EXPLORE PROJECT ↗</a></div>
         </article>
       </div>
     </section>
 
-    <section class="about" id="about">
-      <p class="eyebrow">ABOUT</p>
-      <h2>Design begins with understanding.</h2>
-      <p>I work between editorial design, visual communication and research, with an interest in responsible systems that remain understandable, accessible and useful beyond the designer who created them.</p>
-      <a href="about.html">ABOUT / FULL PROFILE ↗</a>
+    <section class="about home-archive" id="archive">
+      <p class="eyebrow">ARCHIVE</p>
+      <h2>MORE WORK, EXPERIMENTS AND<br>THINGS MADE ALONG THE WAY.</h2>
+      <p>A collection of smaller projects, experiments and independent work across design and visual culture.</p>
+      <a href="https://www.behance.net/gianmarcofabeni" target="_blank" rel="noopener noreferrer">EXPLORE THE ARCHIVE ON BEHANCE ↗</a></section>
+    <section class="about home-contact" id="contact">
+      <p class="eyebrow">CONTACT</p>
+      <h2>HAVE A PROJECT,<br>AN IDEA OR JUST<br>A GOOD QUESTION?</h2>
+      <p>Available for freelance projects, collaborations and new opportunities.</p>
+      <div class="contact-links">
+        <a href="mailto:gianmarcofabenii@gmail.com"><span>EMAIL</span><strong>gianmarcofabenii@gmail.com</strong></a>
+        <a href="https://www.instagram.com/jonnidoesgoods/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><strong>@jonnidoesgoods ↗</strong></a>
+        <a href="https://www.linkedin.com/in/gianmarcofabeni/" target="_blank" rel="noopener noreferrer"><span>LINKEDIN</span><strong>Gianmarco Fabeni ↗</strong></a>
+        <a href="https://www.behance.net/gianmarcofabeni" target="_blank" rel="noopener noreferrer"><span>BEHANCE</span><strong>Gianmarco Fabeni ↗</strong></a>
+      </div>
     </section>
   </main>
 
