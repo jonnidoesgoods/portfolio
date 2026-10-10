@@ -211,3 +211,17 @@ if(feature && miniBook && window.matchMedia('(pointer:fine)').matches){
    });
  }
 })();
+
+// Fit the mobile first name by font size only, retaining natural letter widths.
+(() => {
+ const title=document.querySelector('.homepage .dynamic-hero-name');
+ if(!title)return;
+ const fit=()=>{
+  if(!matchMedia('(max-width:760px)').matches){title.style.removeProperty('--mobile-name-size');return;}
+  const chars=[...title.querySelectorAll('.hero-char')].slice(0,9);
+  const width=chars.reduce((sum,char)=>sum+char.getBoundingClientRect().width,0);
+  if(width)title.style.setProperty('--mobile-name-size',`${parseFloat(getComputedStyle(title).fontSize)*title.clientWidth/width*.999}px`);
+ };
+ document.fonts.ready.then(fit);
+ new ResizeObserver(fit).observe(title);
+})();
